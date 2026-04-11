@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String   // Hashed password
+  fullName  String
+  role      String   @default("HR")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Worker {
+  id              String         @id @default(uuid())
+  employeeCode    String         @unique
+  fullName        String
+  company         String         @default("") // Tên công ty
+  department      String         @default("") // Phòng ban / Bộ phận
+  cccdHash        String         // Mã hóa 6 số cuối CCCD
+  failedAttempts  Int            @default(0)
+  lockUntil       DateTime?
+  salaries        Salary[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([employeeCode])
+}
+
+model Salary {
+  id              String         @id @default(uuid())
+  worker          Worker         @relation(fields: [workerId], references: [id])
+  workerId        String
+  monthYear       String         // Format: YYYY-MM
+  period          Int            @default(1) // 1 = Đợt 1 (ngày 1-13), 2 = Đợt 2 (ngày 14-cuối tháng)
+  baseSalary      Decimal
+  netSalary       Decimal
+  details         String?          // Other details as JSON stringified
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([workerId, monthYear, period])
+  @@index([monthYear])
+}
+
+
+model AuditLog {
+  id              String         @id @default(uuid())
+  action          String         // e.g. "UPLOAD_EMPLOYEES", "UPLOAD_SALARIES", "EDIT_SALARY", "UNLOCK_WORKER"
+  performedBy     String         // admin identifier
+  targetWorker    String?        // mã NV bị ảnh hưởng (nếu có)
+  details         String?          // JSON stringified
+  createdAt       DateTime       @default(now())
+
+  @@index([action])
+  @@index([createdAt])
+}
