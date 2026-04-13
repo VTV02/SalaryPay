@@ -245,12 +245,12 @@ export default function AdminDashboard() {
                   <div className="absolute top-4 right-4 text-xs font-bold text-emerald-600 bg-emerald-100 px-3 py-1 rounded">Chỉnh sửa trực tiếp</div>
                   <div className="max-w-4xl mx-auto border p-8 bg-white shadow-lg font-serif text-slate-800">
                      
-                     <div className="flex justify-between items-start mb-6">
-                        <div className="w-[300px]">
+                     <div className="flex flex-wrap justify-between items-start mb-6 gap-2">
+                        <div className="min-w-[200px] flex-1">
                           <InputField name="companyName" value={salaryDetails.companyName} onChange={handleChange} align="left" weight="bold" />
                           <InputField name="companyLocation" value={salaryDetails.companyLocation} onChange={handleChange} align="left" weight="bold" />
                         </div>
-                        <div className="text-right italic mt-2">Snuol, ngày 21 tháng 03 năm 2026</div>
+                        <div className="text-right italic mt-2 shrink-0">Snuol, ngày 21 tháng 03 năm 2026</div>
                      </div>
                      
                      <div className="text-center mb-8">
