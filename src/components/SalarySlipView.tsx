@@ -27,27 +27,55 @@ export type SalarySlipViewProps = {
 
 /* ── Trilingual label mapping ── */
 const LABEL_MAP: Record<string, { en: string; km: string }> = {
+  // ── Thu nhập / Income ──
   'Ngày công chuẩn/tháng': { en: 'Standard Working Days/Mo', km: 'ថ្ងៃធ្វើការស្តង់ដារ' },
   'Ngày công làm việc thực tế': { en: 'Actual Working Days', km: 'ថ្ងៃធ្វើការជាក់ស្តែង' },
   'Lương ngày công làm việc thực tế': { en: 'Actual Working Days Salary', km: 'ប្រាក់ខែថ្ងៃធ្វើការជាក់ស្តែង' },
+  'Lương nghỉ nhật': { en: 'Sunday Rest Salary', km: 'ប្រាក់ខែថ្ងៃអាទិត្យ' },
+  'Ngày công nghỉ nhật': { en: 'Sunday Rest Days', km: 'ថ្ងៃឈប់សម្រាកអាទិត្យ' },
+  'Lương ngày nghỉ phép': { en: 'Annual Leave Salary', km: 'ប្រាក់ខែឈប់សម្រាកប្រចាំឆ្នាំ' },
+  'Ngày công nghỉ phép': { en: 'Annual Leave Days', km: 'ថ្ងៃឈប់សម្រាកប្រចាំឆ្នាំ' },
+  'Lương ngày nghỉ Thứ 7': { en: 'Saturday Salary', km: 'ប្រាក់ខែថ្ងៃសៅរ៍' },
+  'Ngày công nghỉ Thứ 7': { en: 'Saturday Days', km: 'ថ្ងៃសៅរ៍' },
   'Lương làm việc ngày Lễ/Tết': { en: 'Holiday Salary', km: 'ប្រាក់ខែថ្ងៃឈប់សម្រាក' },
   'Ngày công làm việc ngày Lễ/Tết': { en: 'Holiday Working Days', km: 'ថ្ងៃធ្វើការថ្ងៃឈប់សម្រាក' },
   'Lương ngày nghỉ Lễ/Tết/Nghỉ bù': { en: 'Paid Leave Salary', km: 'ប្រាក់បៀវត្សរ៍សម្រាក' },
   'Ngày công nghỉ Lễ/Tết/NB': { en: 'Paid Leave Days', km: 'ថ្ងៃឈប់សម្រាក' },
+  'Lương ngày LVTN/Nghỉ bù': { en: 'Compensatory Leave Salary', km: 'ប្រាក់ខែឈប់សម្រាកជំនួស' },
+  'Ngày công LVTN/NB': { en: 'Compensatory Leave Days', km: 'ថ្ងៃឈប់សម្រាកជំនួស' },
   'Lương ngày nghỉ Chế độ': { en: 'Welfare Leave Salary', km: 'ប្រាក់ខែសម្រាកសុខុមាលភាព' },
   'Ngày công nghỉ Chế độ': { en: 'Welfare Leave Days', km: 'ថ្ងៃឈប់សម្រាកសុខុមាលភាព' },
   'Giờ tăng ca': { en: 'Overtime Hours', km: 'ម៉ោងថែមម៉ោង' },
   'Lương tăng ca': { en: 'Overtime Salary', km: 'ប្រាក់បៀវត្សរ៍ថែមម៉ោង' },
+  'Giờ bổ tăng ca': { en: 'Additional OT Hours', km: 'ម៉ោងថែមម៉ោងបន្ថែម' },
+  'Lương bổ tăng ca': { en: 'Additional OT Salary', km: 'ប្រាក់បៀវត្សរ៍ថែមម៉ោងបន្ថែម' },
   'Truy lĩnh': { en: 'Arrears', km: 'ប្រាក់ជំពាក់' },
   'Diễn giải truy lĩnh': { en: 'Arrears Note', km: 'កំណត់ចំណាំប្រាក់ជំពាក់' },
+  'Phụ cấp Chức danh': { en: 'Position Allowance', km: 'ប្រាក់ឧបត្ថម្ភមុខតំណែង' },
+  'Phụ cấp xăng xe': { en: 'Gas Allowance', km: 'ប្រាក់ឧបត្ថម្ភសាំង' },
+  'Phụ cấp ăn ca': { en: 'Meal Allowance', km: 'ប្រាក់ឧបត្ថម្ភអាហារ' },
+  'Phụ cấp điện thoại': { en: 'Phone Allowance', km: 'ប្រាក់ឧបត្ថម្ភទូរស័ព្ទ' },
+  'Phụ cấp Kiêm nhiệm': { en: 'Concurrent Duty Allowance', km: 'ប្រាក់ឧបត្ថម្ភការងារស្របពេល' },
+  'Thưởng chuyên cần': { en: 'Attendance Bonus', km: 'ប្រាក់រង្វាន់វត្តមាន' },
   'Quà 8/3': { en: 'Holiday Gift', km: 'អំណោយថ្ងៃឈប់សម្រាក' },
   'Quà lễ': { en: 'Holiday Gift', km: 'អំណោយថ្ងៃឈប់សម្រាក' },
+  'Quà sinh nhật/thuật lễ': { en: 'Birthday/Ceremony Gift', km: 'អំណោយខួបកំណើត/ពិធី' },
+  'Quà sinh nhật, thuật lễ': { en: 'Birthday/Ceremony Gift', km: 'អំណោយខួបកំណើត/ពិធី' },
   'Chi phí về phép/ vé máy bay': { en: 'Flight Ticket / Vacation', km: 'សំបុត្រយន្តហោះ/វិស្សមកាល' },
+  // ── Khấu trừ / Deductions ──
+  'Bảo hiểm xã hội CCPC': { en: 'Social Insurance', km: 'ធានារ៉ាប់រងសង្គម' },
+  'Thuế thu nhập': { en: 'Income Tax', km: 'ពន្ធលើប្រាក់ចំណូល' },
+  'Thuế thu nhập cá nhân': { en: 'Personal Income Tax', km: 'ពន្ធលើប្រាក់ចំណូលផ្ទាល់ខ្លួន' },
+  'Tiền ăn': { en: 'Meal Deduction', km: 'ការកាត់ប្រាក់អាហារ' },
+  'Tiền điện nước': { en: 'Utilities', km: 'ទឹកភ្លើង' },
   'Số tiền đã ứng': { en: 'Advanced Payment', km: 'ប្រាក់កក់ដែលបានបង់' },
+  'Tạm ứng lương Kỳ 1': { en: 'Phase 1 Advance', km: 'ប្រាក់កក់វគ្គ១' },
   'Truy thu': { en: 'Deduction', km: 'ការកាត់ប្រាក់' },
   'Diễn giải truy thu': { en: 'Deduction Note', km: 'កំណត់ចំណាំការកាត់' },
   'Tang chế Kỳ 1': { en: 'Funeral Allowance', km: 'ប្រាក់ឧបត្ថម្ភបុណ្យសព' },
   'Tang chế': { en: 'Funeral Allowance', km: 'ប្រាក់ឧបត្ថម្ភបុណ្យសព' },
+  'Quỹ sinh nhật': { en: 'Birthday Fund', km: 'មូលនិធិខួបកំណើត' },
+  'Phụ cấp ĐDCĐ': { en: 'Union Allowance', km: 'ប្រាក់ឧបត្ថម្ភសហជីព' },
 };
 
 function Tri({ vi, en, km }: { vi: string; en?: string; km?: string }) {
@@ -137,7 +165,7 @@ export default function SalarySlipView(props: SalarySlipViewProps) {
                 <Tri vi="Đơn vị tính:" en="Unit:" km="ឯកតារង្វាស់:" />
                 <span className="ml-1 font-bold text-slate-800">{currency}</span>
               </div>
-              {exchangeRate !== '-' && (
+              {currency === 'USD' && exchangeRate !== '-' && (
                 <div className="flex items-center gap-1">
                   <Tri vi="Tỷ giá USD/VNĐ:" en="Exchange Rate:" km="អត្រាប្តូរប្រាក់:" />
                   <span className="ml-1 font-bold text-slate-800">{exchangeRate}</span>
@@ -194,21 +222,41 @@ export default function SalarySlipView(props: SalarySlipViewProps) {
             {/* ── Bảng lương chi tiết ── */}
             <table className="w-full border-collapse border border-blue-300 text-sm">
               <tbody>
-                {/* Gross + Base */}
-                <tr className="bg-[#a3d29c] border-b-2 border-white">
-                  <td className="p-2 border border-blue-300 w-1/4">
-                    <Tri vi="Lương thu nhập" en="Gross Salary" km="ប្រាក់ខែសរុប" />
-                  </td>
-                  <td className="p-2 border border-blue-300 w-1/4 text-center font-bold text-lg">
-                    {grossIncome}
-                  </td>
-                  <td className="p-2 border border-blue-300 w-1/4">
-                    <Tri vi="Lương Cơ bản (Đóng BHXH)" en="Base Salary (Social Ins.)" km="ប្រាក់ខែសុទ្ធ" />
-                  </td>
-                  <td className="p-2 border border-blue-300 w-1/4 text-center font-bold text-lg">
-                    {baseInsurance}
-                  </td>
-                </tr>
+                {/* Gross + Base — ẩn nếu cả hai đều rỗng */}
+                {(grossIncome || baseInsurance) && (
+                  <tr className="bg-[#a3d29c] border-b-2 border-white">
+                    {grossIncome ? (
+                      <>
+                        <td className="p-2 border border-blue-300 w-1/4">
+                          <Tri vi="Lương thu nhập" en="Gross Salary" km="ប្រាក់ខែសរុប" />
+                        </td>
+                        <td className="p-2 border border-blue-300 w-1/4 text-center font-bold text-lg">
+                          {grossIncome}
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="border border-blue-300 bg-slate-50" />
+                        <td className="border border-blue-300 bg-slate-50" />
+                      </>
+                    )}
+                    {baseInsurance ? (
+                      <>
+                        <td className="p-2 border border-blue-300 w-1/4">
+                          <Tri vi="Lương Cơ bản (Đóng BHXH)" en="Base Salary (Social Ins.)" km="ប្រាក់ខែសុទ្ធ" />
+                        </td>
+                        <td className="p-2 border border-blue-300 w-1/4 text-center font-bold text-lg">
+                          {baseInsurance}
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="border border-blue-300 bg-slate-50" />
+                        <td className="border border-blue-300 bg-slate-50" />
+                      </>
+                    )}
+                  </tr>
+                )}
 
                 {/* Thu nhập header */}
                 {incomeRows.length > 0 && (
@@ -269,21 +317,41 @@ export default function SalarySlipView(props: SalarySlipViewProps) {
                   );
                 })}
 
-                {/* Totals row */}
-                <tr className="bg-[#a3d29c]">
-                  <td className="p-3 border border-blue-300">
-                    <Tri vi="Tổng lương thu nhập (1)" en="Total Income (1)" km="ប្រាក់ចំណូលសរុប (1)" />
-                  </td>
-                  <td className="p-3 border border-blue-300 text-center font-black text-lg">
-                    {totalIncome}
-                  </td>
-                  <td className="p-3 border border-blue-300">
-                    <Tri vi="Tổng giảm trừ (2)" en="Total Deduction (2)" km="ការកាត់កងសរុប (2)" />
-                  </td>
-                  <td className="p-3 border border-blue-300 text-center font-black text-lg text-rose-600">
-                    {totalDeduction}
-                  </td>
-                </tr>
+                {/* Totals row — ẩn nếu cả hai đều rỗng */}
+                {(totalIncome || totalDeduction) && (
+                  <tr className="bg-[#a3d29c]">
+                    {totalIncome ? (
+                      <>
+                        <td className="p-3 border border-blue-300">
+                          <Tri vi="Tổng lương thu nhập (1)" en="Total Income (1)" km="ប្រាក់ចំណូលសរុប (1)" />
+                        </td>
+                        <td className="p-3 border border-blue-300 text-center font-black text-lg">
+                          {totalIncome}
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="border border-blue-300 bg-[#a3d29c]" />
+                        <td className="border border-blue-300 bg-[#a3d29c]" />
+                      </>
+                    )}
+                    {totalDeduction ? (
+                      <>
+                        <td className="p-3 border border-blue-300">
+                          <Tri vi="Tổng giảm trừ (2)" en="Total Deduction (2)" km="ការកាត់កងសរុប (2)" />
+                        </td>
+                        <td className="p-3 border border-blue-300 text-center font-black text-lg text-rose-600">
+                          {totalDeduction}
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="border border-blue-300 bg-[#a3d29c]" />
+                        <td className="border border-blue-300 bg-[#a3d29c]" />
+                      </>
+                    )}
+                  </tr>
+                )}
 
                 {/* Net pay */}
                 <tr className="bg-[#fee197]">

@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/session';
+import { getAdminSession } from '@/lib/admin-session';
 import prisma from '@/lib/prisma';
 import { buildSlipProps } from '@/lib/map-salary-slip';
 import SalarySlipView from '@/components/SalarySlipView';
@@ -14,7 +15,9 @@ type Props = {
 export default async function HomePage({ searchParams }: Props) {
   const session = await getSession();
   if (!session) {
-    redirect('/login');
+    // Nếu admin đã login → về dashboard, ngược lại → về trang admin login
+    const adminSession = await getAdminSession();
+    redirect(adminSession ? '/admin/dashboard' : '/admin/login');
   }
 
   const worker = await prisma.worker.findUnique({

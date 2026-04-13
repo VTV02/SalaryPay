@@ -98,7 +98,7 @@ export function QRPrintButton() {
         <ol>
           <li>Mở <strong>Camera</strong> hoặc <strong>Zalo</strong> trên điện thoại</li>
           <li>Hướng camera vào mã QR phía trên</li>
-          <li>Nhập <strong>Mã Nhân Viên</strong> và <strong>6 số cuối CCCD/CMND</strong></li>
+          <li>Nhập <strong>Mã Nhân Viên</strong> và <strong>ngày tháng năm sinh</strong></li>
           <li>Xem phiếu lương của bạn</li>
         </ol>
       </div>
@@ -189,7 +189,7 @@ export function QRPrintButton() {
                 <ol className="list-decimal list-inside space-y-0.5 text-slate-700">
                   <li>Mở <strong>Camera</strong> hoặc <strong>Zalo</strong></li>
                   <li>Hướng camera vào mã QR</li>
-                  <li>Nhập <strong>Mã Nhân Viên</strong> và <strong>6 số cuối CCCD</strong></li>
+                  <li>Nhập <strong>Mã Nhân Viên</strong> và <strong>ngày tháng năm sinh</strong></li>
                   <li>Xem phiếu lương</li>
                 </ol>
               </div>

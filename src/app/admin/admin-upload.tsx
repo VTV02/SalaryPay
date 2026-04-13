@@ -223,7 +223,7 @@ function ResultBlock({ result, onClose }: { result: ApiResult; onClose?: () => v
 const EMP_COLUMNS = [
   { name: 'Mã Nhân Viên', required: true, note: 'Mã duy nhất, VD: 25023492' },
   { name: 'Họ Tên', required: true, note: 'Họ tên đầy đủ' },
-  { name: '6 Số CCCD', required: true, note: '6 chữ số cuối CCCD/CMND — dùng để đăng nhập' },
+  { name: 'Ngày Sinh', required: true, note: 'Định dạng DD/MM/YYYY — dùng để đăng nhập' },
   { name: 'Công Ty', required: false, note: 'Tên công ty — hiển thị trên phiếu lương' },
   { name: 'Phòng Ban', required: false, note: 'Phòng ban / Bộ phận — dùng để lọc nhân viên' },
 ];
@@ -396,8 +396,8 @@ export function AdminUpload() {
             <p className="text-sm font-semibold text-blue-900">Yêu cầu file Excel (sheet đầu tiên):</p>
             <ColumnTable columns={EMP_COLUMNS} />
             <div className="text-xs text-blue-700 space-y-1">
-              <p>- Nếu mã NV trùng: hệ thống <strong>cập nhật</strong> thông tin (tên, CCCD) thay vì tạo mới.</p>
-              <p>- Mật khẩu đăng nhập nhân viên chính là 6 số cuối CCCD — được mã hóa an toàn.</p>
+              <p>- Nếu mã NV trùng: hệ thống <strong>cập nhật</strong> thông tin (tên, ngày sinh) thay vì tạo mới.</p>
+              <p>- Mật khẩu đăng nhập nhân viên chính là ngày tháng năm sinh (DD/MM/YYYY) — được mã hóa an toàn.</p>
             </div>
           </div>
         )}

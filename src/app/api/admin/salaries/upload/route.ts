@@ -48,18 +48,19 @@ export async function POST(req: NextRequest) {
 
     for (const [index, row] of data.entries()) {
       const employeeCode = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
-      const baseSalaryRaw = row['Lương Cơ Bản'] ?? row['baseSalary'];
-      const netSalaryRaw = row['Thực Lãnh'] ?? row['netSalary'];
-      
-      if (!employeeCode || netSalaryRaw === undefined) {
-        errors.push(`Dòng ${index + 2}: Thiếu thông tin Mã NV hoặc Thực Lãnh.`);
+      const baseSalaryRaw = row['Lương Cơ Bản'] ?? row['Lương Cơ bản'] ?? row['baseSalary'];
+      const netSalaryRaw = row['Thực Lãnh'] ?? row['netSalary']
+        ?? row['Tổng lương thu nhập'] ?? row['Lương thu nhập'];
+
+      if (!employeeCode) {
+        errors.push(`Dòng ${index + 2}: Thiếu Mã Nhân Viên.`);
         continue;
       }
 
       const baseSalary = baseSalaryRaw != null && String(baseSalaryRaw).trim() !== '' && String(baseSalaryRaw).trim() !== '-'
         ? parseFloat(String(baseSalaryRaw))
         : 0;
-      const netSalary = parseFloat(String(netSalaryRaw));
+      const netSalary = netSalaryRaw != null ? parseFloat(String(netSalaryRaw)) : 0;
 
       if (isNaN(baseSalary)) {
          errors.push(`Dòng ${index + 2}: Lỗi định dạng số ở cột Lương Cơ Bản.`);

@@ -36,27 +36,27 @@ export async function POST(req: NextRequest) {
     for (const [index, row] of data.entries()) {
       const employeeCode = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
       const fullName = String(row['Họ Tên'] ?? row['fullName'] ?? '').trim();
-      const cccd = String(row['6 Số CCCD'] ?? row['cccd'] ?? '').trim();
+      const dob = String(row['Ngày Sinh'] ?? row['dob'] ?? '').trim();
       const company = String(row['Công Ty'] ?? row['company'] ?? '').trim();
       const department = String(row['Phòng Ban'] ?? row['Bộ Phận'] ?? row['department'] ?? '').trim();
 
-      if (!employeeCode || !fullName || !cccd) {
-        errors.push(`Dòng ${index + 2}: Thiếu thông tin bắt buộc (Mã NV, Họ Tên, 6 Số CCCD).`);
+      if (!employeeCode || !fullName || !dob) {
+        errors.push(`Dòng ${index + 2}: Thiếu thông tin bắt buộc (Mã NV, Họ Tên, Ngày Sinh).`);
         continue;
       }
 
-      if (cccd.length !== 6) {
-        errors.push(`Dòng ${index + 2}: Mã CCCD phải đủ 6 số, phát hiện '${cccd}'.`);
+      if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
+        errors.push(`Dòng ${index + 2}: Ngày sinh phải đúng định dạng DD/MM/YYYY, phát hiện '${dob}'.`);
         continue;
       }
 
-      const cccdHash = crypto.createHash('sha256').update(cccd).digest('hex');
+      const dobHash = crypto.createHash('sha256').update(dob).digest('hex');
 
       try {
         await prisma.worker.upsert({
           where: { employeeCode },
-          update: { fullName, cccdHash, company, department },
-          create: { employeeCode, fullName, cccdHash, company, department }
+          update: { fullName, dobHash, company, department },
+          create: { employeeCode, fullName, dobHash, company, department }
         });
         successCount++;
       } catch (dbError: unknown) {

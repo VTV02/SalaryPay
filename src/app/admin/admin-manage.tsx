@@ -705,28 +705,69 @@ export function AdminManage() {
                   </div>
                   {(() => {
                     const d = parseDetails(viewSalary.details);
-                    const entries = Object.entries(d);
+                    const entries = Object.entries(d).filter(
+                      ([, val]) => val != null && val !== '' && String(val) !== '0'
+                    );
                     if (entries.length === 0) return <p className="text-sm text-slate-500 italic">Không có dữ liệu chi tiết.</p>;
+
+                    // Nhóm theo loại
+                    const META_KEYS = new Set([
+                      'Tên Công Ty', 'Chức vụ', 'Chức Vụ', 'Phòng ban', 'Bộ phận',
+                      'Địa chỉ mail', 'Email', 'Đơn vị tính', 'Tỷ giá USD/VNĐ', 'Tỷ giá',
+                      'Phụ trách/quản lý trực tiếp', 'Lương thu nhập', 'Lương Thu Nhập',
+                      'Lương Cơ bản', 'Lương Cơ Bản',
+                    ]);
+                    const DED_KEYWORDS = [
+                      'khấu trừ', 'giảm trừ', 'truy thu', 'đã ứng', 'tang chế', 'tạm ứng',
+                      'quỹ sinh nhật', 'bảo hiểm', 'thuế', 'tiền ăn', 'tiền điện', 'điện nước',
+                    ];
+                    const TOTAL_KEYS = new Set([
+                      'Tổng lương thu nhập', 'Tổng thu nhập', 'Tổng giảm trừ', 'Tổng khấu trừ',
+                    ]);
+                    const isDed = (key: string) => {
+                      const low = key.toLowerCase();
+                      return DED_KEYWORDS.some((s) => low.includes(s));
+                    };
+
+                    const meta: [string, unknown][] = [];
+                    const income: [string, unknown][] = [];
+                    const deduction: [string, unknown][] = [];
+                    const totals: [string, unknown][] = [];
+
+                    for (const [key, val] of entries) {
+                      if (META_KEYS.has(key)) meta.push([key, val]);
+                      else if (TOTAL_KEYS.has(key)) totals.push([key, val]);
+                      else if (isDed(key)) deduction.push([key, val]);
+                      else income.push([key, val]);
+                    }
+
+                    const renderSection = (title: string, rows: [string, unknown][], color: string) => {
+                      if (rows.length === 0) return null;
+                      return (
+                        <div className="mb-3" key={title}>
+                          <p className={`text-xs font-bold ${color} mb-1`}>{title}</p>
+                          <table className="w-full text-sm border-collapse">
+                            <tbody>
+                              {rows.map(([key, val]) => (
+                                <tr key={key} className="hover:bg-slate-50/50">
+                                  <td className="px-3 py-1.5 border border-slate-200 text-slate-700 w-1/2">{key}</td>
+                                  <td className="px-3 py-1.5 border border-slate-200 font-medium text-slate-900">
+                                    {typeof val === 'number' ? val.toLocaleString('vi-VN') : String(val)}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      );
+                    };
+
                     return (
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-sm border-collapse">
-                          <thead>
-                            <tr className="bg-slate-50 text-left">
-                              <th className="px-3 py-2 border border-slate-200 font-medium text-slate-600">Mục</th>
-                              <th className="px-3 py-2 border border-slate-200 font-medium text-slate-600">Giá trị</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {entries.map(([key, val]) => (
-                              <tr key={key} className="hover:bg-slate-50/50">
-                                <td className="px-3 py-1.5 border border-slate-200 text-slate-700">{key}</td>
-                                <td className="px-3 py-1.5 border border-slate-200 font-medium text-slate-900">
-                                  {val == null || val === '' ? '—' : String(val)}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                      <div>
+                        {renderSection('Thông tin', meta, 'text-blue-700')}
+                        {renderSection('Các khoản thu nhập', income, 'text-emerald-700')}
+                        {renderSection('Các khoản khấu trừ', deduction, 'text-rose-700')}
+                        {renderSection('Tổng cộng', totals, 'text-amber-700')}
                       </div>
                     );
                   })()}

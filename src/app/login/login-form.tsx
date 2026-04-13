@@ -6,7 +6,7 @@ import { useState } from 'react';
 export function LoginForm() {
   const searchParams = useSearchParams();
   const [employeeCode, setEmployeeCode] = useState('');
-  const [cccdLast6, setCccdLast6] = useState('');
+  const [dob, setDob] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -18,7 +18,7 @@ export function LoginForm() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ employeeCode, cccdLast6 }),
+        body: JSON.stringify({ employeeCode, dob }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -44,11 +44,11 @@ export function LoginForm() {
         <p className="text-sm font-semibold text-slate-600">ប្រព័ន្ធគ្រប់គ្រងប្រាក់ខែ</p>
         <p className="text-sm font-semibold text-slate-600">Payroll Management System</p>
         <p className="text-xs text-slate-500 mt-2">
-          Nhập mã nhân viên và 6 số cuối CCCD
+          Nhập mã nhân viên và ngày tháng năm sinh
           <br />
-          បញ្ចូលលេខកូដបុគ្គលិក និងលេខ ៦ ខ្ទង់ចុងក្រោយនៃអត្តសញ្ញាណប័ណ្ណ
+          បញ្ចូលលេខកូដបុគ្គលិក និងថ្ងៃខែឆ្នាំកំណើត
           <br />
-          Enter Employee ID &amp; last 6 digits of ID card
+          Enter Employee ID &amp; date of birth
         </p>
       </div>
 
@@ -74,16 +74,25 @@ export function LoginForm() {
       </div>
 
       <div>
-        <label htmlFor="cccdLast6" className="block text-xs font-medium text-slate-600 mb-1">
-          6 số cuối CCCD / លេខ ៦ ខ្ទង់ចុងក្រោយ / Last 6 digits of ID
+        <label htmlFor="dob" className="block text-xs font-medium text-slate-600 mb-1">
+          Ngày sinh / ថ្ងៃកំណើត / Date of birth (DD/MM/YYYY)
         </label>
         <input
-          id="cccdLast6"
-          name="cccdLast6"
-          inputMode="numeric"
-          maxLength={6}
-          value={cccdLast6}
-          onChange={(e) => setCccdLast6(e.target.value.replace(/\D/g, '').slice(0, 6))}
+          id="dob"
+          name="dob"
+          placeholder="DD/MM/YYYY"
+          maxLength={10}
+          value={dob}
+          onChange={(e) => {
+            const digits = e.target.value.replace(/\D/g, '').slice(0, 8);
+            let formatted = digits;
+            if (digits.length > 4) {
+              formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+            } else if (digits.length > 2) {
+              formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+            }
+            setDob(formatted);
+          }}
           className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 tracking-widest focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600 outline-none"
           required
         />

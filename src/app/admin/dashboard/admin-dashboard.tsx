@@ -68,88 +68,87 @@ export default function AdminDashboard() {
 
       setSalaryDetails({
         id: data.salary?.id,
-        grossSalary: getVal(['grossSalary', 'Lương thu nhập', 'Mức Lương Gốc', 'Lương Thu Nhập']) || '498.50',
+        grossSalary: getVal(['grossSalary', 'Lương thu nhập', 'Mức Lương Gốc', 'Lương Thu Nhập']),
         baseSalary: getVal(['baseSalary', 'Lương cơ bản', 'Lương Cơ Bản (Đóng BHXH)', 'Lương Cơ Bản', 'Lương tham gia BHXH']) || data.salary?.baseSalary || '',
-        companyName: getVal(['companyName', 'Tên Công Ty']) || 'CÔNG TY TNHH EASTERN RUBBER',
-        companyLocation: getVal(['companyLocation', 'Quốc gia', 'Vị trí']) || 'CAMBODIA',
-        exchangeRate: getVal(['exchangeRate', 'Tỷ giá', 'Tỷ giá USD', 'Tỷ giá USD/VNĐ']) || '26,078',
+        companyName: getVal(['companyName', 'Tên Công Ty']) || 'CÔNG TY TNHH EASTERN RUBBER CAMBODIA',
+        currency: getVal(['currency', 'Đơn vị tính']) || 'USD',
+        exchangeRate: getVal(['exchangeRate', 'Tỷ giá', 'Tỷ giá USD', 'Tỷ giá USD/VNĐ']),
         role: getVal(['role', 'Chức vụ', 'Vị trí', 'Job Title']),
-        department: getVal(['department', 'Phòng ban', 'Phòng', 'Department']),
+        department: getVal(['department', 'Phòng ban', 'Bộ phận', 'Department']),
         email: getVal(['email', 'Địa chỉ mail', 'Email', 'Hòm thư']),
-        
+        supervisor: getVal(['supervisor', 'Phụ trách/quản lý trực tiếp']),
+        // Thu nhập
         standardWorkingDays: getVal(['standardWorkingDays', 'Ngày công chuẩn/tháng', 'Ngày công chuẩn']),
         actualWorkingDays: getVal(['actualWorkingDays', 'Ngày công làm việc thực tế', 'Ngày thực tế']),
         actualWorkingDaysSalary: getVal(['actualWorkingDaysSalary', 'Lương ngày công làm việc thực tế']),
-        
+        sundayRestSalary: getVal(['Lương nghỉ nhật']),
+        sundayRestDays: getVal(['Ngày công nghỉ nhật']),
+        annualLeaveSalary: getVal(['Lương ngày nghỉ phép']),
+        annualLeaveDays: getVal(['Ngày công nghỉ phép']),
+        saturdaySalary: getVal(['Lương ngày nghỉ Thứ 7']),
+        saturdayDays: getVal(['Ngày công nghỉ Thứ 7']),
         holidaySalary: getVal(['holidaySalary', 'Lương làm việc ngày Lễ/Tết']),
         holidayWorkingDays: getVal(['holidayWorkingDays', 'Ngày công làm việc ngày Lễ/Tết']),
-        
         paidLeaveSalary: getVal(['paidLeaveSalary', 'Lương ngày nghỉ Lễ/Tết/Nghỉ bù']),
         paidLeaveDays: getVal(['paidLeaveDays', 'Ngày công nghỉ Lễ/Tết/NB']),
-        
+        compLeaveSalary: getVal(['Lương ngày LVTN/Nghỉ bù']),
+        compLeaveDays: getVal(['Ngày công LVTN/NB']),
         welfareLeaveSalary: getVal(['welfareLeaveSalary', 'Lương ngày nghỉ Chế độ']),
         welfareLeaveDays: getVal(['welfareLeaveDays', 'Ngày công nghỉ Chế độ']),
-        
         overtimeHours: getVal(['overtimeHours', 'Giờ tăng ca']),
         overtimeSalary: getVal(['overtimeSalary', 'Lương tăng ca']),
-        
-        advancedPayment: getVal(['advancedPayment', 'Số tiền đã ứng', 'Tạm ứng']),
+        addOvertimeHours: getVal(['Giờ bổ tăng ca']),
+        addOvertimeSalary: getVal(['Lương bổ tăng ca']),
         arrears: getVal(['arrears', 'Truy lĩnh']),
-        deduction: getVal(['deduction', 'Truy thu']),
-        
         arrearsNote: getVal(['arrearsNote', 'Diễn giải truy lĩnh']),
-        deductionNote: getVal(['deductionNote', 'Diễn giải truy thu']),
-        
+        positionAllowance: getVal(['Phụ cấp Chức danh', 'Phụ cấp chức danh']),
+        gasAllowance: getVal(['Phụ cấp xăng xe']),
+        mealAllowance: getVal(['Phụ cấp ăn ca']),
+        phoneAllowance: getVal(['Phụ cấp điện thoại']),
+        concurrentAllowance: getVal(['Phụ cấp Kiêm nhiệm', 'Phụ cấp kiêm nhiệm']),
+        attendanceBonus: getVal(['Thưởng chuyên cần']),
         gift8d3: getVal(['gift8d3', 'Quà 8/3', 'Quà lễ']),
-        funeralAllowance: getVal(['funeralAllowance', 'Tang chế Kỳ 1']),
+        birthdayCeremonyGift: getVal(['Quà sinh nhật, thuật lễ', 'Quà sinh nhật/thuật lễ']),
         flightTicket: getVal(['flightTicket', 'Chi phí về phép/ vé máy bay']),
-        
+        totalIncome: getVal(['totalIncome', 'Tổng lương thu nhập', 'Tổng thu nhập']),
+        // Khấu trừ
+        socialInsurance: getVal(['Bảo hiểm xã hội CCPC', 'BHXH CCPC', 'Bảo hiểm xã hội']),
+        incomeTax: getVal(['Thuế thu nhập', 'Thuế thu nhập cá nhân', 'Thuế TNCN']),
+        mealDeduction: getVal(['Tiền ăn']),
+        utilities: getVal(['Tiền điện nước']),
+        advancedPayment: getVal(['advancedPayment', 'Số tiền đã ứng', 'Tạm ứng']),
+        phase1Advance: getVal(['Tạm ứng lương Kỳ 1', 'Tạm ứng lương kỳ 1']),
+        deduction: getVal(['deduction', 'Truy thu']),
+        deductionNote: getVal(['deductionNote', 'Diễn giải truy thu']),
+        funeralAllowance: getVal(['funeralAllowance', 'Tang chế Kỳ 1', 'Tang chế']),
+        birthdayFund: getVal(['Quỹ sinh nhật']),
+        unionAllowance: getVal(['Phụ cấp ĐDCĐ']),
+        totalDeduction: getVal(['totalDeduction', 'Tổng giảm trừ', 'Tổng khấu trừ']),
+        netSalary: data.salary?.netSalary || '',
         ...initialDetails
       });
     } catch (e) { alert("Lỗi kết nối"); }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    let newDetails = { ...salaryDetails, [name]: value };
-
-    if (name === 'grossSalary' || name === 'standardWorkingDays' || name === 'actualWorkingDays') {
-       const gross = parseFloat(newDetails.grossSalary) || 0;
-       const stdDays = parseFloat(newDetails.standardWorkingDays) || 26;
-       const actDays = parseFloat(newDetails.actualWorkingDays) || 0;
-       if (stdDays > 0) {
-         newDetails.actualWorkingDaysSalary = ((gross / stdDays) * actDays).toFixed(2);
-       }
-    }
-    setSalaryDetails(newDetails);
+    setSalaryDetails({ ...salaryDetails, [name]: value });
   };
-
-  const workingDays = parseFloat(salaryDetails?.actualWorkingDaysSalary) || 0;
-  const holiday = parseFloat(salaryDetails?.holidaySalary) || 0;
-  const paidLeave = parseFloat(salaryDetails?.paidLeaveSalary) || 0;
-  const welfare = parseFloat(salaryDetails?.welfareLeaveSalary) || 0;
-  const overtime = parseFloat(salaryDetails?.overtimeSalary) || 0;
-  const arrears = parseFloat(salaryDetails?.arrears) || 0;
-  const gift = parseFloat(salaryDetails?.gift8d3) || 0;
-  const flight = parseFloat(salaryDetails?.flightTicket) || 0;
-  const computedTotalIncome = (workingDays + holiday + paidLeave + welfare + overtime + arrears + gift + flight).toFixed(2);
-
-  const advanced = parseFloat(salaryDetails?.advancedPayment) || 0;
-  const deduction = parseFloat(salaryDetails?.deduction) || 0;
-  const funeral = parseFloat(salaryDetails?.funeralAllowance) || 0;
-  const computedTotalDeduction = (advanced + deduction + funeral).toFixed(2);
-
-  const computedNet = (parseFloat(computedTotalIncome) - parseFloat(computedTotalDeduction)).toFixed(2);
 
   const handleSaveSalary = async () => {
     setSalarySaving(true);
     const detailsObj = { ...salaryDetails };
     delete detailsObj.id;
+    delete detailsObj.netSalary;
+
+    const baseSalary = typeof detailsObj.baseSalary === 'string'
+      ? (parseFloat(detailsObj.baseSalary.replace(/,/g, '')) || 0)
+      : (detailsObj.baseSalary || 0);
     delete detailsObj.baseSalary;
-    delete detailsObj.netSalary; 
-    
-    detailsObj.totalIncome = computedTotalIncome;
-    detailsObj.totalDeduction = computedTotalDeduction;
+
+    const netSalary = typeof salaryDetails.netSalary === 'string'
+      ? (parseFloat(salaryDetails.netSalary.replace(/,/g, '')) || 0)
+      : (salaryDetails.netSalary || 0);
 
     try {
       const res = await fetch('/api/admin/salaries/update', {
@@ -158,8 +157,8 @@ export default function AdminDashboard() {
           workerId: foundWorker.id,
           monthYear: searchMonth,
           period: searchPeriod,
-          baseSalary: typeof salaryDetails.baseSalary === 'string' ? (parseFloat(salaryDetails.baseSalary.replace(/,/g, '')) || 0) : (salaryDetails.baseSalary || 0),
-          netSalary: parseFloat(computedNet) || 0,
+          baseSalary,
+          netSalary,
           details: detailsObj
         })
       });
@@ -217,7 +216,7 @@ export default function AdminDashboard() {
 
               {foundWorker && salaryDetails && (
                 <div className="border-t-2 border-slate-200 pt-8 mt-4 bg-slate-50 relative pb-12">
-                  <div className="absolute top-4 right-4 text-xs font-bold text-amber-600 bg-amber-100 px-3 py-1 rounded">* Smart Auto-Calc: Bật</div>
+                  <div className="absolute top-4 right-4 text-xs font-bold text-emerald-600 bg-emerald-100 px-3 py-1 rounded">Chỉnh sửa trực tiếp</div>
                   <div className="max-w-4xl mx-auto border p-8 bg-white shadow-lg font-serif text-slate-800">
                      
                      <div className="flex justify-between items-start mb-6">
@@ -242,8 +241,15 @@ export default function AdminDashboard() {
                      
                      <div className="flex justify-end mb-4">
                        <div className="w-64 text-right font-medium italic space-y-1">
-                         <div className="flex items-center justify-end"><LabelTrilingual vi="Đơn vị tính:" en="Unit:" km="ឯកតារង្វាស់:" /><span className="ml-2">USD</span></div>
+                         <div className="flex items-center justify-end"><LabelTrilingual vi="Đơn vị tính:" en="Unit:" km="ឯកតារង្វាស់:" />
+                           <select name="currency" value={salaryDetails.currency || 'USD'} onChange={(e: any) => handleChange(e)} className="ml-2 w-20 border border-dashed border-slate-300 focus:border-amber-500 outline-none p-1 text-center font-bold bg-slate-100/50 hover:bg-amber-50 focus:bg-amber-100 transition-colors">
+                             <option value="USD">USD</option>
+                             <option value="KHR">KHR</option>
+                           </select>
+                         </div>
+                         {(salaryDetails.currency || 'USD') === 'USD' && (
                          <div className="flex items-center justify-end"><LabelTrilingual vi="Tỷ giá USD/VNĐ:" en="Exchange Rate:" km="អត្រាប្តូរប្រាក់:" /> <div className="ml-2 w-20"><InputField name="exchangeRate" value={salaryDetails.exchangeRate} onChange={handleChange} align="right" weight="bold"/></div></div>
+                         )}
                        </div>
                      </div>
                      
@@ -291,6 +297,24 @@ export default function AdminDashboard() {
                               <td className="p-1 border border-blue-200"><InputField name="actualWorkingDays" value={salaryDetails.actualWorkingDays} onChange={handleChange} /></td>
                            </tr>
                            <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương nghỉ nhật" en="Sunday Rest Salary" km="ប្រាក់ឈប់សម្រាកថ្ងៃអាទិត្យ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="sundayRestSalary" value={salaryDetails.sundayRestSalary} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ nhật" en="Sunday Rest Days" km="ថ្ងៃឈប់សម្រាកអាទិត្យ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="sundayRestDays" value={salaryDetails.sundayRestDays} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ phép" en="Annual Leave Salary" km="ប្រាក់ឈប់សម្រាកប្រចាំឆ្នាំ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="annualLeaveSalary" value={salaryDetails.annualLeaveSalary} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ phép" en="Annual Leave Days" km="ថ្ងៃឈប់សម្រាកប្រចាំឆ្នាំ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="annualLeaveDays" value={salaryDetails.annualLeaveDays} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ Thứ 7" en="Saturday Rest Salary" km="ប្រាក់ឈប់សម្រាកថ្ងៃសៅរ៍" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="saturdaySalary" value={salaryDetails.saturdaySalary} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ Thứ 7" en="Saturday Rest Days" km="ថ្ងៃឈប់សម្រាកសៅរ៍" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="saturdayDays" value={salaryDetails.saturdayDays} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương làm việc ngày Lễ/Tết" en="Holiday Salary" km="ប្រាក់ខែថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="holidaySalary" value={salaryDetails.holidaySalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công làm việc ngày Lễ/Tết" en="Holiday Working Days" km="ថ្ងៃធ្វើការថ្ងៃឈប់សម្រាក" /></td>
@@ -303,6 +327,12 @@ export default function AdminDashboard() {
                               <td className="p-1 border border-blue-200"><InputField name="paidLeaveDays" value={salaryDetails.paidLeaveDays} onChange={handleChange} /></td>
                            </tr>
                            <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày LVTN/Nghỉ bù" en="Comp Leave Salary" km="ប្រាក់ឈប់សម្រាកជំនួស" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="compLeaveSalary" value={salaryDetails.compLeaveSalary} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công LVTN/NB" en="Comp Leave Days" km="ថ្ងៃឈប់សម្រាកជំនួស" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="compLeaveDays" value={salaryDetails.compLeaveDays} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ Chế độ" en="Welfare Leave Salary" km="ប្រាក់ខែសម្រាកសុខុមាលភាព" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="welfareLeaveSalary" value={salaryDetails.welfareLeaveSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ Chế độ" en="Welfare Leave Days" km="ថ្ងៃឈប់សម្រាកសុខុមាលភាព" /></td>
@@ -312,32 +342,44 @@ export default function AdminDashboard() {
                            <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Giờ tăng ca" en="Overtime Hours" km="ម៉ោងថែមម៉ោង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="overtimeHours" value={salaryDetails.overtimeHours} onChange={handleChange} /></td>
-                              <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="❖ Các khoản khấu trừ:" en="❖ Deductions:" km="❖ ការកាត់កង:" /></td>
-                              <td className="p-0 border border-blue-200 bg-slate-50"></td>
-                           </tr>
-                           <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương tăng ca" en="Overtime Salary" km="ប្រាក់បៀវត្សរ៍ថែមម៉ោង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="overtimeSalary" value={salaryDetails.overtimeSalary} onChange={handleChange} /></td>
-                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Số tiền đã ứng" en="Advanced Payment" km="ប្រាក់កក់ដែលបានបង់" /></td>
-                              <td className="p-1 border border-blue-200 font-bold text-rose-600"><InputField name="advancedPayment" value={salaryDetails.advancedPayment} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Giờ bổ tăng ca" en="Add. Overtime Hours" km="ម៉ោងថែមម៉ោងបន្ថែម" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="addOvertimeHours" value={salaryDetails.addOvertimeHours} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương bổ tăng ca" en="Add. Overtime Salary" km="ប្រាក់បៀវត្សរ៍ថែមម៉ោងបន្ថែម" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="addOvertimeSalary" value={salaryDetails.addOvertimeSalary} onChange={handleChange} /></td>
                            </tr>
                            <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Truy lĩnh" en="Arrears" km="ប្រាក់ជំពាក់" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="arrears" value={salaryDetails.arrears} onChange={handleChange} /></td>
-                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Truy thu" en="Deduction" km="ការកាត់ប្រាក់" /></td>
-                              <td className="p-1 border border-blue-200 font-bold text-rose-600"><InputField name="deduction" value={salaryDetails.deduction} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
                               <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="D.giải truy lĩnh" en="Arrears Note" km="កំណត់ចំណាំប្រាក់ជំពាក់" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="arrearsNote" value={salaryDetails.arrearsNote} onChange={handleChange} /></td>
-                              <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="D.giải truy thu" en="Deduction Note" km="កំណត់ចំណាំការកាត់" /></td>
-                              <td className="p-1 border border-blue-200"><InputField name="deductionNote" value={salaryDetails.deductionNote} onChange={handleChange} /></td>
                            </tr>
                            <tr>
-                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quà lễ" en="Holiday Gift" km="អំណោយថ្ងៃឈប់សម្រាក" /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp Chức danh" en="Position Allowance" km="ប្រាក់ឧបត្ថម្ភមុខតំណែង" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="positionAllowance" value={salaryDetails.positionAllowance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp xăng xe" en="Gas Allowance" km="ប្រាក់ឧបត្ថម្ភសាំង" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="gasAllowance" value={salaryDetails.gasAllowance} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp ăn ca" en="Meal Allowance" km="ប្រាក់ឧបត្ថម្ភអាហារ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="mealAllowance" value={salaryDetails.mealAllowance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp điện thoại" en="Phone Allowance" km="ប្រាក់ឧបត្ថម្ភទូរស័ព្ទ" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="phoneAllowance" value={salaryDetails.phoneAllowance} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp Kiêm nhiệm" en="Concurrent Allowance" km="ប្រាក់ឧបត្ថម្ភរួមគ្នា" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="concurrentAllowance" value={salaryDetails.concurrentAllowance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Thưởng chuyên cần" en="Attendance Bonus" km="ប្រាក់រង្វាន់វត្តមាន" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="attendanceBonus" value={salaryDetails.attendanceBonus} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quà 8/3" en="Holiday Gift" km="អំណោយថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="gift8d3" value={salaryDetails.gift8d3} onChange={handleChange} /></td>
-                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tang chế" en="Funeral Allowance" km="ប្រាក់ឧបត្ថម្ភបុណ្យសព" /></td>
-                              <td className="p-1 border border-blue-200 font-bold text-rose-600"><InputField name="funeralAllowance" value={salaryDetails.funeralAllowance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quà sinh nhật/thuật lễ" en="Birthday/Ceremony Gift" km="អំណោយថ្ងៃកំណើត" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="birthdayCeremonyGift" value={salaryDetails.birthdayCeremonyGift} onChange={handleChange} /></td>
                            </tr>
                            <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Chi phí vé máy bay/về phép" en="Flight Ticket / Vacation" km="សំបុត្រយន្តហោះ/វិស្សមកាល" /></td>
@@ -345,18 +387,59 @@ export default function AdminDashboard() {
                               <td colSpan={2} className="border border-blue-200 bg-slate-50"></td>
                            </tr>
 
+                           {/* ── Khấu trừ ── */}
+                           <tr>
+                              <td colSpan={4} className="p-2 border border-blue-200 italic bg-rose-50/50"><LabelTrilingual vi="❖ Các khoản khấu trừ:" en="❖ Deductions:" km="❖ ការកាត់កង:" /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Bảo hiểm xã hội CCPC" en="Social Insurance" km="ធានារ៉ាប់រងសង្គម" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="socialInsurance" value={salaryDetails.socialInsurance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Thuế thu nhập" en="Income Tax" km="ពន្ធលើប្រាក់ចំណូល" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="incomeTax" value={salaryDetails.incomeTax} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tiền ăn" en="Meal Deduction" km="កាត់ប្រាក់អាហារ" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="mealDeduction" value={salaryDetails.mealDeduction} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tiền điện nước" en="Utilities" km="ថ្លៃទឹកភ្លើង" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="utilities" value={salaryDetails.utilities} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Số tiền đã ứng" en="Advanced Payment" km="ប្រាក់កក់ដែលបានបង់" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="advancedPayment" value={salaryDetails.advancedPayment} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tạm ứng lương Kỳ 1" en="Phase 1 Advance" km="ប្រាក់កម្ចីដំណាក់កាលទី១" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="phase1Advance" value={salaryDetails.phase1Advance} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Truy thu" en="Deduction" km="ការកាត់ប្រាក់" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="deduction" value={salaryDetails.deduction} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="D.giải truy thu" en="Deduction Note" km="កំណត់ចំណាំការកាត់" /></td>
+                              <td className="p-1 border border-blue-200"><InputField name="deductionNote" value={salaryDetails.deductionNote} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tang chế" en="Funeral Allowance" km="ប្រាក់ឧបត្ថម្ភបុណ្យសព" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="funeralAllowance" value={salaryDetails.funeralAllowance} onChange={handleChange} /></td>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quỹ sinh nhật" en="Birthday Fund" km="មូលនិធិថ្ងៃកំណើត" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="birthdayFund" value={salaryDetails.birthdayFund} onChange={handleChange} /></td>
+                           </tr>
+                           <tr>
+                              <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp ĐDCĐ" en="Union Allowance" km="ប្រាក់ឧបត្ថម្ភសហជីព" /></td>
+                              <td className="p-1 border border-blue-200 text-rose-600"><InputField name="unionAllowance" value={salaryDetails.unionAllowance} onChange={handleChange} /></td>
+                              <td colSpan={2} className="border border-blue-200 bg-slate-50"></td>
+                           </tr>
+
+                           {/* ── Tổng cộng ── */}
                            <tr className="bg-[#a3d29c]">
                               <td className="p-3 border border-blue-300"><LabelTrilingual vi="Tổng lương thu nhập (1)" en="Total Income (1)" km="ប្រាក់ចំណូលសរុប (1)" /></td>
-                              <td className="p-3 border border-blue-300 text-center font-black text-lg">{computedTotalIncome}</td>
+                              <td className="p-1 border border-blue-300"><InputField name="totalIncome" value={salaryDetails.totalIncome} onChange={handleChange} weight="bold" /></td>
                               <td className="p-3 border border-blue-300"><LabelTrilingual vi="Tổng giảm trừ (2)" en="Total Deduction (2)" km="ការកាត់កងសរុប (2)" /></td>
-                              <td className="p-3 border border-blue-300 text-center font-black text-lg text-rose-600">{computedTotalDeduction}</td>
+                              <td className="p-1 border border-blue-300 text-rose-600"><InputField name="totalDeduction" value={salaryDetails.totalDeduction} onChange={handleChange} weight="bold" /></td>
                            </tr>
                            <tr className="bg-[#fee197]">
                               <td colSpan={2} className="p-5 border border-blue-300 text-center uppercase tracking-wider">
                                  <div className="font-bold text-xl">Lương Thực Nhận (1) - (2)</div>
                                  <div className="text-sm text-slate-700 italic">NET SALARY / ប្រាក់កម្រៃសុទ្ធ</div>
                               </td>
-                              <td colSpan={2} className="p-5 border border-blue-300 text-center text-4xl font-black text-rose-700">{parseFloat(computedNet) > 0 ? computedNet : '0.00'}</td>
+                              <td colSpan={2} className="p-3 border border-blue-300 text-center"><InputField name="netSalary" value={salaryDetails.netSalary} onChange={handleChange} weight="bold" align="center" /></td>
                            </tr>
                         </tbody>
                      </table>
@@ -426,7 +509,7 @@ export default function AdminDashboard() {
                        <ul className="text-slate-700 space-y-1.5 font-medium text-xs">
                           <li className="flex items-start"><span className="shrink-0 w-4 h-4 rounded bg-blue-100 text-blue-600 flex items-center justify-center mr-1.5 font-bold text-[10px] mt-px">1</span> Quét mã QR</li>
                           <li className="flex items-start"><span className="shrink-0 w-4 h-4 rounded bg-blue-100 text-blue-600 flex items-center justify-center mr-1.5 font-bold text-[10px] mt-px">2</span> Nhập Mã nhân viên</li>
-                          <li className="flex items-start"><span className="shrink-0 w-4 h-4 rounded bg-blue-100 text-blue-600 flex items-center justify-center mr-1.5 font-bold text-[10px] mt-px">3</span> Nhập 6 số cuối CCCD</li>
+                          <li className="flex items-start"><span className="shrink-0 w-4 h-4 rounded bg-blue-100 text-blue-600 flex items-center justify-center mr-1.5 font-bold text-[10px] mt-px">3</span> Nhập ngày tháng năm sinh</li>
                        </ul>
                     </div>
                     {/* EN */}

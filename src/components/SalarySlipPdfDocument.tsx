@@ -178,10 +178,12 @@ export function SalarySlipPdfDocument({ data }: { data: SalarySlipViewProps }) {
             <Text style={styles.labelMuted}>Đơn vị tính</Text>
             <Text style={styles.valueBold}>{data.currency}</Text>
           </View>
+          {data.currency === 'USD' && data.exchangeRate !== '-' && (
           <View>
             <Text style={styles.labelMuted}>Tỷ giá USD/VNĐ</Text>
             <Text style={styles.valueBold}>{data.exchangeRate}</Text>
           </View>
+          )}
         </View>
 
         <Text style={[styles.sectionTitle, { color: '#047857' }]}>Thông tin nhân viên</Text>

@@ -8,7 +8,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,7 +28,7 @@ model Worker {
   fullName        String
   company         String         @default("") // Tên công ty
   department      String         @default("") // Phòng ban / Bộ phận
-  cccdHash        String         // Mã hóa 6 số cuối CCCD
+  dobHash         String         // Mã hóa ngày sinh (DD/MM/YYYY)  @map("cccdHash")
   failedAttempts  Int            @default(0)
   lockUntil       DateTime?
   salaries        Salary[]

@@ -10,11 +10,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const employeeCode = String(body.employeeCode ?? '').trim();
-    const cccdLast6 = String(body.cccdLast6 ?? '').replace(/\D/g, '').slice(-6);
+    const dob = String(body.dob ?? '').trim();
 
-    if (!employeeCode || cccdLast6.length !== 6) {
+    // Validate DD/MM/YYYY format
+    if (!employeeCode || !/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
       return NextResponse.json(
-        { error: 'Vui lòng nhập đủ mã nhân viên và 6 số cuối CCCD.' },
+        { error: 'Vui lòng nhập đủ mã nhân viên và ngày sinh (DD/MM/YYYY).' },
         { status: 400 }
       );
     }
@@ -36,11 +37,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const inputHash = crypto.createHash('sha256').update(cccdLast6).digest('hex');
+    const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
     let ok = false;
-    if (/^[a-f0-9]{64}$/i.test(worker.cccdHash) && inputHash.length === 64) {
+    if (/^[a-f0-9]{64}$/i.test(worker.dobHash) && inputHash.length === 64) {
       const a = Buffer.from(inputHash, 'hex');
-      const b = Buffer.from(worker.cccdHash, 'hex');
+      const b = Buffer.from(worker.dobHash, 'hex');
       ok = a.length === b.length && crypto.timingSafeEqual(a, b);
     }
 

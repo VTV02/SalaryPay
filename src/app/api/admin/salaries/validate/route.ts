@@ -62,12 +62,14 @@ export async function POST(req: NextRequest) {
     for (const [index, row] of data.entries()) {
       const rowNum = index + 2;
       const employeeCode = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
-      const baseSalaryRaw = row['Lương Cơ Bản'] ?? row['baseSalary'];
-      const netSalaryRaw = row['Thực Lãnh'] ?? row['netSalary'];
+      const baseSalaryRaw = row['Lương Cơ Bản'] ?? row['Lương Cơ bản'] ?? row['baseSalary'];
+      const netSalaryRaw = row['Thực Lãnh'] ?? row['netSalary']
+        ?? row['Tổng lương thu nhập'] ?? row['Lương thu nhập'];
 
       // Thiếu thông tin
-      if (!employeeCode || netSalaryRaw === undefined) {
-        issues.push({ row: rowNum, type: 'error', message: 'Thiếu thông tin Mã NV hoặc Thực Lãnh.' });
+      if (!employeeCode) {
+        const cols = Object.keys(row).join(', ');
+        issues.push({ row: rowNum, type: 'error', message: `Thiếu Mã Nhân Viên. Cột nhận được: [${cols}]` });
         continue;
       }
 

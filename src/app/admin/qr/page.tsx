@@ -100,7 +100,7 @@ export default async function QRPage({
               <li>Hướng camera vào mã QR phía trên</li>
               <li>
                 Nhập <strong>Mã Nhân Viên</strong> và{' '}
-                <strong>6 số cuối CCCD/CMND</strong>
+                <strong>ngày tháng năm sinh</strong>
               </li>
               <li>Xem phiếu lương của bạn</li>
             </ol>
