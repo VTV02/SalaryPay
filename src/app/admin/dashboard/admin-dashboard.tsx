@@ -502,9 +502,10 @@ export default function AdminDashboard() {
                  </p>
 
                  {/* QR Code */}
-                 <div className="p-4 bg-white border-4 border-slate-800 rounded-xl mb-4 inline-block">
-                    <QRCodeSVG value={typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL || '')} size={220} level="H" includeMargin={false} fgColor="#0f172a" />
+                 <div className="p-4 bg-white border-4 border-slate-800 rounded-xl mb-2 inline-block">
+                    <QRCodeSVG value={typeof window !== 'undefined' ? window.location.origin + '/login' : (process.env.NEXT_PUBLIC_APP_URL || '') + '/login'} size={220} level="H" includeMargin={false} fgColor="#0f172a" />
                  </div>
+                 <p className="text-xs text-slate-400 mb-4">pay.snuol.com.vn/login</p>
 
                  {/* Instructions - always 3 columns */}
                  <div className="w-full bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4 grid grid-cols-3 gap-4 text-left qr-instructions">
