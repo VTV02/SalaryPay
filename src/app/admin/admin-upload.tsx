@@ -499,8 +499,8 @@ export function AdminUpload() {
                 onChange={(e) => setSalPeriod(Number(e.target.value) as 1 | 2)}
                 className="rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-emerald-600/25 focus:border-emerald-600 outline-none"
               >
-                <option value={1}>Đợt 1 — Tạm ứng (13 ngày đầu tháng)</option>
-                <option value={2}>Đợt 2 — Quyết toán (các ngày còn lại)</option>
+                <option value={1}>Đợt 1 — Tạm ứng</option>
+                <option value={2}>Đợt 2 — Quyết toán</option>
               </select>
             </div>
           </div>
