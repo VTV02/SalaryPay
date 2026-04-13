@@ -9,13 +9,20 @@ import {
 import type { SalarySlipViewProps } from '@/components/SalarySlipView';
 
 Font.register({
-  family: 'Roboto',
-  src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.ttf',
+  family: 'NotoSans',
+  fonts: [
+    { src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@latest/latin-400-normal.ttf', fontWeight: 'normal' },
+    { src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@latest/latin-700-normal.ttf', fontWeight: 'bold' },
+  ],
+});
+Font.register({
+  family: 'NotoSansKhmer',
+  src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-khmer@latest/khmer-400-normal.ttf',
 });
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'Roboto',
+    fontFamily: 'NotoSans',
     fontSize: 9,
     padding: 36,
     color: '#1e293b',
@@ -210,29 +217,39 @@ export function SalarySlipPdfDocument({ data }: { data: SalarySlipViewProps }) {
           </View>
         </View>
 
+        {(data.grossIncome || data.baseInsurance) && (
         <View style={styles.row2}>
+          {data.grossIncome ? (
           <View style={{ flex: 1 }}>
             <Text style={styles.labelMuted}>Lương thu nhập</Text>
             <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#047857' }}>{data.grossIncome}</Text>
           </View>
+          ) : <View style={{ flex: 1 }} />}
+          {data.baseInsurance ? (
           <View style={{ flex: 1 }}>
             <Text style={styles.labelMuted}>Lương cơ bản (BHXH)</Text>
             <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{data.baseInsurance}</Text>
           </View>
+          ) : <View style={{ flex: 1 }} />}
         </View>
+        )}
 
-        <RowList title="Các khoản thu nhập" rows={data.incomeRows} accent="emerald" />
-        <RowList title="Các khoản khấu trừ" rows={data.deductionRows} accent="rose" />
+        {data.incomeRows.length > 0 && <RowList title="Các khoản thu nhập" rows={data.incomeRows} accent="emerald" />}
+        {data.deductionRows.length > 0 && <RowList title="Các khoản khấu trừ" rows={data.deductionRows} accent="rose" />}
 
         <View style={styles.totals}>
+          {data.totalIncome ? (
           <View style={styles.totalRow}>
             <Text style={{ color: '#cbd5e1', fontSize: 9 }}>Tổng lương thu nhập (1)</Text>
             <Text style={{ color: '#fff', fontSize: 10 }}>{data.totalIncome}</Text>
           </View>
+          ) : null}
+          {data.totalDeduction ? (
           <View style={styles.totalRow}>
             <Text style={{ color: '#cbd5e1', fontSize: 9 }}>Tổng giảm trừ (2)</Text>
             <Text style={{ color: '#fff', fontSize: 10 }}>{data.totalDeduction}</Text>
           </View>
+          ) : null}
           <View style={styles.net}>
             <Text style={styles.netLabel}>LƯƠNG THỰC NHẬN (1) − (2)</Text>
             <Text style={styles.netVal}>{data.netPay}</Text>
