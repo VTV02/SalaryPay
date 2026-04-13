@@ -221,7 +221,7 @@ export default function AdminDashboard() {
            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print p-6">
               <div className="flex flex-wrap gap-4 mb-6">
                  <input type="text" placeholder="Nhập Mã Nhân Viên..." value={searchEmpCode} onChange={e => setSearchEmpCode(e.target.value)} className="px-4 py-2 rounded-lg border border-slate-300 w-48 outline-none" />
-                 <input type="text" placeholder="Tháng (YYYY-MM)" value={searchMonth} onChange={e => setSearchMonth(e.target.value)} className="px-4 py-2 rounded-lg border border-slate-300 w-48 outline-none" />
+                 <input type="month" value={searchMonth} onChange={e => setSearchMonth(e.target.value)} className="px-4 py-2 rounded-lg border border-slate-300 w-48 outline-none" />
                  <select value={searchPeriod} onChange={e => setSearchPeriod(Number(e.target.value))} className="px-4 py-2 rounded-lg border border-slate-300 outline-none">
                    <option value={1}>Đợt 1 — Tạm ứng</option>
                    <option value={2}>Đợt 2 — Quyết toán</option>
