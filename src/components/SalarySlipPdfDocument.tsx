@@ -1,3 +1,4 @@
+import path from 'path';
 import {
   Document,
   Page,
@@ -8,16 +9,15 @@ import {
 } from '@react-pdf/renderer';
 import type { SalarySlipViewProps } from '@/components/SalarySlipView';
 
+const fontsDir = path.join(process.cwd(), 'public', 'fonts');
+
 Font.register({
   family: 'NotoSans',
-  fonts: [
-    { src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@latest/latin-400-normal.ttf', fontWeight: 'normal' },
-    { src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@latest/latin-700-normal.ttf', fontWeight: 'bold' },
-  ],
+  src: path.join(fontsDir, 'NotoSans-Regular.ttf'),
 });
 Font.register({
   family: 'NotoSansKhmer',
-  src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-khmer@latest/khmer-400-normal.ttf',
+  src: path.join(fontsDir, 'NotoSansKhmer-Regular.ttf'),
 });
 
 const styles = StyleSheet.create({
