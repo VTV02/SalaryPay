@@ -221,8 +221,27 @@ export default function AdminDashboard() {
                  <button onClick={handleSearchSalary} disabled={searchingSalary} className="px-6 py-2 bg-amber-500 text-white rounded-lg font-medium shadow disabled:opacity-60 flex items-center">{searchingSalary ? (<><svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Đang tải...</>) : 'Tải Phiếu Lương'}</button>
               </div>
 
-              {foundWorker && salaryDetails && (
+              {searchingSalary && (
+                <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                  <div className="relative w-14 h-14">
+                    <div className="absolute inset-0 rounded-full border-4 border-slate-200" />
+                    <div className="absolute inset-0 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
+                  </div>
+                  <p className="text-sm text-slate-500 animate-pulse">Đang tải dữ liệu phiếu lương...</p>
+                </div>
+              )}
+
+              {!searchingSalary && foundWorker && salaryDetails && (
                 <div className="border-t-2 border-slate-200 pt-8 mt-4 bg-slate-50 relative pb-12">
+                  {salarySaving && (
+                    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center rounded-xl">
+                      <div className="relative w-12 h-12 mb-3">
+                        <div className="absolute inset-0 rounded-full border-4 border-slate-200" />
+                        <div className="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
+                      </div>
+                      <p className="text-sm font-medium text-slate-600 animate-pulse">Đang lưu dữ liệu lên máy chủ...</p>
+                    </div>
+                  )}
                   <div className="absolute top-4 right-4 text-xs font-bold text-emerald-600 bg-emerald-100 px-3 py-1 rounded">Chỉnh sửa trực tiếp</div>
                   <div className="max-w-4xl mx-auto border p-8 bg-white shadow-lg font-serif text-slate-800">
                      
