@@ -8,9 +8,13 @@ import { LogoLoader } from '@/components/LogoLoader';
 
 interface Worker { id: string; employeeCode: string; fullName: string; failedAttempts: number; lockUntil: string | null; }
 
-const InputField = ({ name, align = 'center', weight = 'normal', value, onChange }: {name:string, align?: string, weight?: string, value: string, onChange: any}) => (
-  <input type="text" name={name} value={value || ''} onChange={onChange} className={`w-full bg-slate-100/50 hover:bg-amber-50 focus:bg-amber-100 text-${align} border border-dashed border-slate-300 focus:border-amber-500 outline-none p-1 text-slate-800 ${weight === 'bold' ? 'font-bold' : ''} transition-colors`} />
-)
+const InputField = ({ name, align = 'center', weight = 'normal', value, onChange, multiline = false }: {name:string, align?: string, weight?: string, value: string, onChange: any, multiline?: boolean}) => {
+  const cls = `w-full bg-slate-100/50 hover:bg-amber-50 focus:bg-amber-100 text-${align} border border-dashed border-slate-300 focus:border-amber-500 outline-none p-1 text-slate-800 ${weight === 'bold' ? 'font-bold' : ''} transition-colors`;
+  if (multiline) {
+    return <textarea name={name} value={value || ''} onChange={onChange} rows={1} className={`${cls} resize-none overflow-hidden`} onInput={(e) => { const t = e.target as HTMLTextAreaElement; t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; }} ref={(el) => { if (el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; } }} />;
+  }
+  return <input type="text" name={name} value={value || ''} onChange={onChange} className={cls} />;
+}
 
 const LabelTrilingual = ({ vi, en, km }: { vi: string, en: string, km: string }) => (
   <div className="flex flex-col">
@@ -247,8 +251,8 @@ export default function AdminDashboard() {
                      
                      <div className="flex flex-wrap justify-between items-start mb-6 gap-2">
                         <div className="min-w-[200px] flex-1">
-                          <InputField name="companyName" value={salaryDetails.companyName} onChange={handleChange} align="left" weight="bold" />
-                          <InputField name="companyLocation" value={salaryDetails.companyLocation} onChange={handleChange} align="left" weight="bold" />
+                          <InputField name="companyName" value={salaryDetails.companyName} onChange={handleChange} align="left" weight="bold" multiline />
+                          <InputField name="companyLocation" value={salaryDetails.companyLocation} onChange={handleChange} align="left" weight="bold" multiline />
                         </div>
                         <div className="text-right italic mt-2 shrink-0">Snuol, ngày 21 tháng 03 năm 2026</div>
                      </div>
