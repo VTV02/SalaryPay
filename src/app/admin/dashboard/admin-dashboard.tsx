@@ -135,6 +135,11 @@ export default function AdminDashboard() {
     setSalaryDetails({ ...salaryDetails, [name]: value });
   };
 
+  const hasVal = (...keys: string[]) => keys.some(k => {
+    const v = salaryDetails?.[k];
+    return v != null && v !== '' && v !== '0' && v !== 0;
+  });
+
   const handleSaveSalary = async () => {
     setSalarySaving(true);
     const detailsObj = { ...salaryDetails };
@@ -290,142 +295,142 @@ export default function AdminDashboard() {
                               <td className="p-1 border border-blue-200"><InputField name="standardWorkingDays" value={salaryDetails.standardWorkingDays} onChange={handleChange} /></td>
                            </tr>
 
-                           <tr>
+                           {hasVal('actualWorkingDaysSalary','actualWorkingDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày công làm việc thực tế" en="Actual Working Days Salary" km="ប្រាក់ខែថ្ងៃធ្វើការជាក់ស្តែង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="actualWorkingDaysSalary" value={salaryDetails.actualWorkingDaysSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công làm việc thực tế" en="Actual Working Days" km="ថ្ងៃធ្វើការជាក់ស្តែង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="actualWorkingDays" value={salaryDetails.actualWorkingDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('sundayRestSalary','sundayRestDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương nghỉ nhật" en="Sunday Rest Salary" km="ប្រាក់ឈប់សម្រាកថ្ងៃអាទិត្យ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="sundayRestSalary" value={salaryDetails.sundayRestSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ nhật" en="Sunday Rest Days" km="ថ្ងៃឈប់សម្រាកអាទិត្យ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="sundayRestDays" value={salaryDetails.sundayRestDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('annualLeaveSalary','annualLeaveDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ phép" en="Annual Leave Salary" km="ប្រាក់ឈប់សម្រាកប្រចាំឆ្នាំ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="annualLeaveSalary" value={salaryDetails.annualLeaveSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ phép" en="Annual Leave Days" km="ថ្ងៃឈប់សម្រាកប្រចាំឆ្នាំ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="annualLeaveDays" value={salaryDetails.annualLeaveDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('saturdaySalary','saturdayDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ Thứ 7" en="Saturday Rest Salary" km="ប្រាក់ឈប់សម្រាកថ្ងៃសៅរ៍" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="saturdaySalary" value={salaryDetails.saturdaySalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ Thứ 7" en="Saturday Rest Days" km="ថ្ងៃឈប់សម្រាកសៅរ៍" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="saturdayDays" value={salaryDetails.saturdayDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('holidaySalary','holidayWorkingDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương làm việc ngày Lễ/Tết" en="Holiday Salary" km="ប្រាក់ខែថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="holidaySalary" value={salaryDetails.holidaySalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công làm việc ngày Lễ/Tết" en="Holiday Working Days" km="ថ្ងៃធ្វើការថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="holidayWorkingDays" value={salaryDetails.holidayWorkingDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('paidLeaveSalary','paidLeaveDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ Lễ/Tết/Nghỉ bù" en="Paid Leave Salary" km="ប្រាក់បៀវត្សរ៍សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="paidLeaveSalary" value={salaryDetails.paidLeaveSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ Lễ/Tết/NB" en="Paid Leave Days" km="ថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="paidLeaveDays" value={salaryDetails.paidLeaveDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('compLeaveSalary','compLeaveDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày LVTN/Nghỉ bù" en="Comp Leave Salary" km="ប្រាក់ឈប់សម្រាកជំនួស" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="compLeaveSalary" value={salaryDetails.compLeaveSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công LVTN/NB" en="Comp Leave Days" km="ថ្ងៃឈប់សម្រាកជំនួស" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="compLeaveDays" value={salaryDetails.compLeaveDays} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('welfareLeaveSalary','welfareLeaveDays') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương ngày nghỉ Chế độ" en="Welfare Leave Salary" km="ប្រាក់ខែសម្រាកសុខុមាលភាព" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="welfareLeaveSalary" value={salaryDetails.welfareLeaveSalary} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Ngày công nghỉ Chế độ" en="Welfare Leave Days" km="ថ្ងៃឈប់សម្រាកសុខុមាលភាព" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="welfareLeaveDays" value={salaryDetails.welfareLeaveDays} onChange={handleChange} /></td>
-                           </tr>
+                           </tr>}
 
-                           <tr>
+                           {hasVal('overtimeHours','overtimeSalary') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Giờ tăng ca" en="Overtime Hours" km="ម៉ោងថែមម៉ោង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="overtimeHours" value={salaryDetails.overtimeHours} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương tăng ca" en="Overtime Salary" km="ប្រាក់បៀវត្សរ៍ថែមម៉ោង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="overtimeSalary" value={salaryDetails.overtimeSalary} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('addOvertimeHours','addOvertimeSalary') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Giờ bổ tăng ca" en="Add. Overtime Hours" km="ម៉ោងថែមម៉ោងបន្ថែម" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="addOvertimeHours" value={salaryDetails.addOvertimeHours} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Lương bổ tăng ca" en="Add. Overtime Salary" km="ប្រាក់បៀវត្សរ៍ថែមម៉ោងបន្ថែម" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="addOvertimeSalary" value={salaryDetails.addOvertimeSalary} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('arrears','arrearsNote') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Truy lĩnh" en="Arrears" km="ប្រាក់ជំពាក់" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="arrears" value={salaryDetails.arrears} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="D.giải truy lĩnh" en="Arrears Note" km="កំណត់ចំណាំប្រាក់ជំពាក់" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="arrearsNote" value={salaryDetails.arrearsNote} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('positionAllowance','gasAllowance') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp Chức danh" en="Position Allowance" km="ប្រាក់ឧបត្ថម្ភមុខតំណែង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="positionAllowance" value={salaryDetails.positionAllowance} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp xăng xe" en="Gas Allowance" km="ប្រាក់ឧបត្ថម្ភសាំង" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="gasAllowance" value={salaryDetails.gasAllowance} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('mealAllowance','phoneAllowance') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp ăn ca" en="Meal Allowance" km="ប្រាក់ឧបត្ថម្ភអាហារ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="mealAllowance" value={salaryDetails.mealAllowance} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp điện thoại" en="Phone Allowance" km="ប្រាក់ឧបត្ថម្ភទូរស័ព្ទ" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="phoneAllowance" value={salaryDetails.phoneAllowance} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('concurrentAllowance','attendanceBonus') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp Kiêm nhiệm" en="Concurrent Allowance" km="ប្រាក់ឧបត្ថម្ភរួមគ្នា" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="concurrentAllowance" value={salaryDetails.concurrentAllowance} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Thưởng chuyên cần" en="Attendance Bonus" km="ប្រាក់រង្វាន់វត្តមាន" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="attendanceBonus" value={salaryDetails.attendanceBonus} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('gift8d3','birthdayCeremonyGift') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quà 8/3" en="Holiday Gift" km="អំណោយថ្ងៃឈប់សម្រាក" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="gift8d3" value={salaryDetails.gift8d3} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quà sinh nhật/thuật lễ" en="Birthday/Ceremony Gift" km="អំណោយថ្ងៃកំណើត" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="birthdayCeremonyGift" value={salaryDetails.birthdayCeremonyGift} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('flightTicket') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Chi phí vé máy bay/về phép" en="Flight Ticket / Vacation" km="សំបុត្រយន្តហោះ/វិស្សមកាល" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="flightTicket" value={salaryDetails.flightTicket} onChange={handleChange} /></td>
                               <td colSpan={2} className="border border-blue-200 bg-slate-50"></td>
-                           </tr>
+                           </tr>}
 
                            {/* ── Khấu trừ ── */}
-                           <tr>
+                           {hasVal('socialInsurance','incomeTax','mealDeduction','utilities','advancedPayment','phase1Advance','deduction','funeralAllowance','birthdayFund','unionAllowance') && <tr>
                               <td colSpan={4} className="p-2 border border-blue-200 italic bg-rose-50/50"><LabelTrilingual vi="❖ Các khoản khấu trừ:" en="❖ Deductions:" km="❖ ការកាត់កង:" /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('socialInsurance','incomeTax') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Bảo hiểm xã hội CCPC" en="Social Insurance" km="ធានារ៉ាប់រងសង្គម" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="socialInsurance" value={salaryDetails.socialInsurance} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Thuế thu nhập" en="Income Tax" km="ពន្ធលើប្រាក់ចំណូល" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="incomeTax" value={salaryDetails.incomeTax} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('mealDeduction','utilities') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tiền ăn" en="Meal Deduction" km="កាត់ប្រាក់អាហារ" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="mealDeduction" value={salaryDetails.mealDeduction} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tiền điện nước" en="Utilities" km="ថ្លៃទឹកភ្លើង" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="utilities" value={salaryDetails.utilities} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('advancedPayment','phase1Advance') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Số tiền đã ứng" en="Advanced Payment" km="ប្រាក់កក់ដែលបានបង់" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="advancedPayment" value={salaryDetails.advancedPayment} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tạm ứng lương Kỳ 1" en="Phase 1 Advance" km="ប្រាក់កម្ចីដំណាក់កាលទី១" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="phase1Advance" value={salaryDetails.phase1Advance} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('deduction','deductionNote') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Truy thu" en="Deduction" km="ការកាត់ប្រាក់" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="deduction" value={salaryDetails.deduction} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200 italic"><LabelTrilingual vi="D.giải truy thu" en="Deduction Note" km="កំណត់ចំណាំការកាត់" /></td>
                               <td className="p-1 border border-blue-200"><InputField name="deductionNote" value={salaryDetails.deductionNote} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('funeralAllowance','birthdayFund') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Tang chế" en="Funeral Allowance" km="ប្រាក់ឧបត្ថម្ភបុណ្យសព" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="funeralAllowance" value={salaryDetails.funeralAllowance} onChange={handleChange} /></td>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Quỹ sinh nhật" en="Birthday Fund" km="មូលនិធិថ្ងៃកំណើត" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="birthdayFund" value={salaryDetails.birthdayFund} onChange={handleChange} /></td>
-                           </tr>
-                           <tr>
+                           </tr>}
+                           {hasVal('unionAllowance') && <tr>
                               <td className="p-2 border border-blue-200"><LabelTrilingual vi="Phụ cấp ĐDCĐ" en="Union Allowance" km="ប្រាក់ឧបត្ថម្ភសហជីព" /></td>
                               <td className="p-1 border border-blue-200 text-rose-600"><InputField name="unionAllowance" value={salaryDetails.unionAllowance} onChange={handleChange} /></td>
                               <td colSpan={2} className="border border-blue-200 bg-slate-50"></td>
-                           </tr>
+                           </tr>}
 
                            {/* ── Tổng cộng ── */}
                            <tr className="bg-[#a3d29c]">
