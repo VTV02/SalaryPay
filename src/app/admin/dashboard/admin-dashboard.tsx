@@ -38,6 +38,7 @@ export default function AdminDashboard() {
   const [foundWorker, setFoundWorker] = useState<any>(null);
   const [salaryDetails, setSalaryDetails] = useState<any>(null);
   const [salarySaving, setSalarySaving] = useState(false);
+  const [searchingSalary, setSearchingSalary] = useState(false);
 
   const fetchWorkers = async () => { /*...*/ };
   const handleUploadEmployees = async () => { /*...*/ };
@@ -47,6 +48,7 @@ export default function AdminDashboard() {
 
   const handleSearchSalary = async () => {
     if (!searchEmpCode || !searchMonth) { alert("Vui lòng nhập Mã NV và Tháng (YYYY-MM)"); return; }
+    setSearchingSalary(true);
     try {
       const res = await fetch(`/api/admin/salaries/search?employeeCode=${searchEmpCode}&monthYear=${searchMonth}&period=${searchPeriod}`);
       const data = await res.json();
@@ -127,7 +129,7 @@ export default function AdminDashboard() {
         netSalary: data.salary?.netSalary || '',
         ...initialDetails
       });
-    } catch (e) { alert("Lỗi kết nối"); }
+    } catch (e) { alert("Lỗi kết nối"); } finally { setSearchingSalary(false); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -216,7 +218,7 @@ export default function AdminDashboard() {
                    <option value={1}>Đợt 1 — Tạm ứng</option>
                    <option value={2}>Đợt 2 — Quyết toán</option>
                  </select>
-                 <button onClick={handleSearchSalary} className="px-6 py-2 bg-amber-500 text-white rounded-lg font-medium shadow">Tải Phiếu Lương</button>
+                 <button onClick={handleSearchSalary} disabled={searchingSalary} className="px-6 py-2 bg-amber-500 text-white rounded-lg font-medium shadow disabled:opacity-60 flex items-center">{searchingSalary ? (<><svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Đang tải...</>) : 'Tải Phiếu Lương'}</button>
               </div>
 
               {foundWorker && salaryDetails && (
@@ -451,8 +453,8 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="flex justify-center mt-8 space-x-6">
-                     <button onClick={handleSaveSalary} disabled={salarySaving} className="px-10 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg rounded-xl shadow-xl shadow-amber-500/40">
-                        {salarySaving ? 'Hệ thống Đang Kéo Lưu...' : 'CẬP NHẬT TRÊN MÁY CHỦ SẴN SÀNG CHO CÔNG NHÂN XEM'}
+                     <button onClick={handleSaveSalary} disabled={salarySaving} className="px-10 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg rounded-xl shadow-xl shadow-amber-500/40 disabled:opacity-60 flex items-center justify-center">
+                        {salarySaving ? (<><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Đang lưu...</>) : 'CẬP NHẬT TRÊN MÁY CHỦ SẴN SÀNG CHO CÔNG NHÂN XEM'}
                      </button>
                   </div>
                 </div>
