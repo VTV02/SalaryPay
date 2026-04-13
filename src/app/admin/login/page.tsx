@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { LogoLoader } from '@/components/LogoLoader';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -38,7 +39,12 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative">
+      {loading && (
+        <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+          <LogoLoader text="Đang đăng nhập..." />
+        </div>
+      )}
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
           <div className="p-8">

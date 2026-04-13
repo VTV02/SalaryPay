@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { LogoLoader } from '@/components/LogoLoader';
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -33,6 +34,12 @@ export function LoginForm() {
   }
 
   return (
+    <>
+    {pending && (
+      <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+        <LogoLoader text="Đang đăng nhập..." />
+      </div>
+    )}
     <form
       onSubmit={onSubmit}
       className="max-w-md mx-auto mt-16 p-8 bg-white rounded-3xl border border-slate-100 shadow-lg space-y-6"
@@ -106,5 +113,6 @@ export function LoginForm() {
         {pending ? (<span className="flex items-center justify-center"><svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Đang đăng nhập...</span>) : 'Đăng nhập / ចូល / Login'}
       </button>
     </form>
+    </>
   );
 }

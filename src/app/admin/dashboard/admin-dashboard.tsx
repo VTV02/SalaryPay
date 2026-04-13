@@ -40,12 +40,13 @@ export default function AdminDashboard() {
   const [salaryDetails, setSalaryDetails] = useState<any>(null);
   const [salarySaving, setSalarySaving] = useState(false);
   const [searchingSalary, setSearchingSalary] = useState(false);
+  const [fullLoading, setFullLoading] = useState<string | null>(null);
 
   const fetchWorkers = async () => { /*...*/ };
   const handleUploadEmployees = async () => { /*...*/ };
   const handleUploadSalaries = async () => { /*...*/ };
   const unlockWorker = async () => { /*...*/ };
-  const handleLogout = async () => { await fetch('/api/admin/auth/logout', { method: 'POST' }); router.push('/admin/login'); };
+  const handleLogout = async () => { setFullLoading('Đang đăng xuất...'); await fetch('/api/admin/auth/logout', { method: 'POST' }); router.push('/admin/login'); };
 
   const handleSearchSalary = async () => {
     if (!searchEmpCode || !searchMonth) { alert("Vui lòng nhập Mã NV và Tháng (YYYY-MM)"); return; }
@@ -178,8 +179,14 @@ export default function AdminDashboard() {
   const printQR = () => { window.print(); };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 sm:p-8 pt-12 text-slate-800 printable-bg">
+    <div className="min-h-screen bg-slate-50 p-4 sm:p-8 pt-12 text-slate-800 printable-bg relative">
       <style dangerouslySetInnerHTML={{__html:`@media print { .no-print { display: none !important; } .printable-bg { background: white !important; padding: 0 !important; } }`}}></style>
+
+      {fullLoading && (
+        <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+          <LogoLoader text={fullLoading} />
+        </div>
+      )}
 
       <div className="max-w-6xl mx-auto space-y-8">
         
