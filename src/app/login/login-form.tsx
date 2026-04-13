@@ -25,7 +25,7 @@ export function LoginForm() {
         setError(typeof data.error === 'string' ? data.error : 'Đăng nhập thất bại.');
         return;
       }
-      const next = searchParams.get('next') || '/';
+      const next = searchParams.get('next') || '/salary';
       window.location.href = next;
     } catch {
       setPending(false);

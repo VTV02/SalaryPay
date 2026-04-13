@@ -56,65 +56,114 @@ export default async function QRPage({
 
       {/* Trang in QR */}
       <div className="flex flex-col items-center justify-center px-8 py-12 print:py-0 print:px-0 print:min-h-screen">
-        <div className="max-w-lg w-full text-center space-y-8 print:space-y-6">
-          {/* Header */}
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 print:text-3xl">
-              THACO AGRI SNUOL COMPLEX
-            </h1>
-            <div className="mt-4 h-1 w-24 bg-emerald-700 mx-auto rounded-full print:bg-black" />
-          </div>
+        <div className="max-w-3xl w-full text-center space-y-6 print:space-y-4">
 
           {/* Title */}
           <div>
-            <h2 className="text-xl font-bold text-emerald-800 print:text-2xl print:text-black">
-              QUÉT MÃ ĐỂ XEM PHIẾU LƯƠNG
-            </h2>
-            <p className="mt-2 text-slate-600 text-sm print:text-base print:text-black">
-              Dùng Camera hoặc Zalo để quét mã QR bên dưới
+            <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight print:text-5xl">
+              TRA CỨU PHIẾU LƯƠNG
+            </h1>
+            <p className="mt-2 text-base text-slate-500 print:text-lg">
+              <span className="font-semibold text-slate-700">SALARY SLIP LOOKUP</span>
+              <span className="mx-2 text-slate-300">|</span>
+              <span className="font-semibold text-blue-800">ការស្វែងរកប្រាក់បៀវត្សរ៍</span>
             </p>
           </div>
 
+          {/* Subtitle */}
+          <p className="text-sm text-slate-500 print:text-base">
+            Quét mã QR bằng Camera / Zalo / Messenger
+            <span className="mx-1">&middot;</span>
+            <span className="italic">Scan QR with your phone</span>
+            <span className="mx-1">&middot;</span>
+            <span className="text-blue-800">ស្កេនកូដ QR ដោយទូរស័ព្ទ</span>
+          </p>
+
           {/* QR Code */}
           <div className="flex justify-center">
-            <div className="bg-white p-4 border-4 border-slate-800 rounded-2xl print:border-2 print:rounded-none inline-block">
+            <div className="bg-white p-5 border-4 border-slate-800 rounded-2xl print:border-2 print:rounded-none inline-block">
               <img
                 src={qrDataUrl}
                 alt="QR Code tra cứu lương"
-                width={300}
-                height={300}
-                className="print:w-[280px] print:h-[280px]"
+                width={320}
+                height={320}
+                className="print:w-[300px] print:h-[300px]"
               />
             </div>
           </div>
 
-          {/* Hướng dẫn */}
-          <div className="bg-slate-50 rounded-2xl p-6 text-left space-y-3 print:bg-white print:border print:border-black print:rounded-none print:p-4">
-            <h3 className="font-bold text-slate-800 text-base print:text-lg">
-              HƯỚNG DẪN:
-            </h3>
-            <ol className="list-decimal list-inside space-y-2 text-slate-700 text-sm print:text-base">
-              <li>
-                Mở <strong>Camera</strong> hoặc <strong>Zalo</strong> trên điện thoại
-              </li>
-              <li>Hướng camera vào mã QR phía trên</li>
-              <li>
-                Nhập <strong>Mã Nhân Viên</strong> và{' '}
-                <strong>ngày tháng năm sinh</strong>
-              </li>
-              <li>Xem phiếu lương của bạn</li>
-            </ol>
+          {/* URL dưới QR */}
+          <div className="text-sm text-slate-400 print:text-slate-600 font-medium">
+            pay.snuol.com.vn/login
           </div>
 
-          {/* Cảnh báo */}
-          <div className="text-xs text-slate-500 print:text-sm print:text-black print:font-medium">
-            Lương là bảo mật. Mọi hành vi tìm hiểu lương người khác sẽ bị xử phạt
-            theo quy chế Công ty!
+          {/* Hướng dẫn 3 cột */}
+          <div className="border border-slate-200 rounded-xl overflow-hidden print:rounded-none print:border-slate-400">
+            <div className="grid grid-cols-3 divide-x divide-slate-200">
+              {/* Tiếng Việt */}
+              <div className="p-5 text-left">
+                <h3 className="font-bold text-slate-800 mb-3 text-sm">Tiếng Việt</h3>
+                <ol className="space-y-2 text-sm text-slate-700">
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">1</span>
+                    Quét mã QR
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">2</span>
+                    Nhập Mã nhân viên
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">3</span>
+                    Nhập ngày tháng năm sinh
+                  </li>
+                </ol>
+              </div>
+
+              {/* English */}
+              <div className="p-5 text-left">
+                <h3 className="font-bold text-slate-800 mb-3 text-sm">English</h3>
+                <ol className="space-y-2 text-sm text-slate-700">
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">1</span>
+                    Scan QR code
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">2</span>
+                    Enter Employee ID
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">3</span>
+                    Enter last 6 of ID
+                  </li>
+                </ol>
+              </div>
+
+              {/* ភាសាខ្មែរ */}
+              <div className="p-5 text-left">
+                <h3 className="font-bold text-blue-800 mb-3 text-sm">ភាសាខ្មែរ</h3>
+                <ol className="space-y-2 text-sm text-slate-700">
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">1</span>
+                    ស្កេនកូដ QR
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">2</span>
+                    បញ្ជូលលេខបុគ្គលិក
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-700">3</span>
+                    បញ្ជូលលេខ ៦ ខ្ទង់
+                  </li>
+                </ol>
+              </div>
+            </div>
           </div>
 
-          {/* URL nhỏ dưới cùng */}
-          <div className="text-xs text-slate-400 print:text-slate-600 break-all">
-            {loginUrl}
+          {/* Footer */}
+          <div className="pt-4 border-t border-slate-200">
+            <p className="text-sm font-bold text-slate-700 tracking-wide">
+              THACO AGRI SNUOL COMPLEX
+            </p>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ export function MonthSelector({ keys, current }: { keys: string[]; current: stri
       params.delete('month');
       params.delete('period');
     }
-    router.push(`/?${params.toString()}`);
+    router.push(`/salary?${params.toString()}`);
   }
 
   if (keys.length <= 1) return null;
