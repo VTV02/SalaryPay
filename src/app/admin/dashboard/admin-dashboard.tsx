@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { QRCodeSVG } from 'qrcode.react';
 import { AdminUpload } from '@/app/admin/admin-upload';
 import { AdminManage } from '@/app/admin/admin-manage';
+import { LogoLoader } from '@/components/LogoLoader';
 
 interface Worker { id: string; employeeCode: string; fullName: string; failedAttempts: number; lockUntil: string | null; }
 
@@ -222,24 +223,16 @@ export default function AdminDashboard() {
               </div>
 
               {searchingSalary && (
-                <div className="flex flex-col items-center justify-center py-20 space-y-4">
-                  <div className="relative w-14 h-14">
-                    <div className="absolute inset-0 rounded-full border-4 border-slate-200" />
-                    <div className="absolute inset-0 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
-                  </div>
-                  <p className="text-sm text-slate-500 animate-pulse">Đang tải dữ liệu phiếu lương...</p>
+                <div className="py-16">
+                  <LogoLoader text="Đang tải dữ liệu phiếu lương..." />
                 </div>
               )}
 
               {!searchingSalary && foundWorker && salaryDetails && (
                 <div className="border-t-2 border-slate-200 pt-8 mt-4 bg-slate-50 relative pb-12">
                   {salarySaving && (
-                    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center rounded-xl">
-                      <div className="relative w-12 h-12 mb-3">
-                        <div className="absolute inset-0 rounded-full border-4 border-slate-200" />
-                        <div className="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
-                      </div>
-                      <p className="text-sm font-medium text-slate-600 animate-pulse">Đang lưu dữ liệu lên máy chủ...</p>
+                    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex items-center justify-center rounded-xl">
+                      <LogoLoader text="Đang lưu dữ liệu lên máy chủ..." />
                     </div>
                   )}
                   <div className="absolute top-4 right-4 text-xs font-bold text-emerald-600 bg-emerald-100 px-3 py-1 rounded">Chỉnh sửa trực tiếp</div>
