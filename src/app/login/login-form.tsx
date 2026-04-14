@@ -94,7 +94,7 @@ export function LoginForm() {
           id="dob"
           name="dob"
           type="password"
-          placeholder="••••••••••"
+          placeholder="DD/MM/YYYY"
           autoComplete="current-password"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
