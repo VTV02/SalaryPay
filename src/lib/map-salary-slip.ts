@@ -3,8 +3,19 @@ import type { DetailRow, SalarySlipViewProps } from '@/components/SalarySlipView
 
 function str(v: unknown): string {
   if (v == null || v === '') return '';
-  if (typeof v === 'number' && Number.isFinite(v)) return String(v);
-  return String(v);
+  if (typeof v === 'number' && Number.isFinite(v)) {
+    // Làm tròn 2 chữ số thập phân, bỏ trailing zeros
+    const rounded = Math.round(v * 100) / 100;
+    return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/\.?0+$/, '');
+  }
+  // Nếu string là số → cũng làm tròn 2 decimal
+  const s = String(v).trim();
+  const n = parseFloat(s);
+  if (!isNaN(n) && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(s)) {
+    const rounded = Math.round(n * 100) / 100;
+    return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/\.?0+$/, '');
+  }
+  return s;
 }
 
 function pick(d: Record<string, unknown>, keys: string[]): string {
