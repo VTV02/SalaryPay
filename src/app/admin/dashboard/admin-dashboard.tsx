@@ -65,10 +65,17 @@ export default function AdminDashboard() {
         try { initialDetails = JSON.parse(data.salary.details); } catch(e){}
       }
 
+      const fmtNum = (v: unknown): string => {
+        if (v == null || v === '') return '';
+        const n = typeof v === 'number' ? v : parseFloat(String(v));
+        if (isNaN(n)) return String(v);
+        const r = Math.round(n * 100) / 100;
+        return Number.isInteger(r) ? String(r) : r.toFixed(2).replace(/\.?0+$/, '');
+      };
       const getVal = (keys: string[]) => {
         for (const k of keys) {
            if (initialDetails[k] !== undefined && initialDetails[k] !== null && initialDetails[k] !== '') {
-              return initialDetails[k];
+              return fmtNum(initialDetails[k]);
            }
         }
         return '';
@@ -77,7 +84,7 @@ export default function AdminDashboard() {
       setSalaryDetails({
         id: data.salary?.id,
         grossSalary: getVal(['grossSalary', 'Lương thu nhập', 'Mức Lương Gốc', 'Lương Thu Nhập']),
-        baseSalary: getVal(['baseSalary', 'Lương cơ bản', 'Lương Cơ Bản (Đóng BHXH)', 'Lương Cơ Bản', 'Lương tham gia BHXH']) || data.salary?.baseSalary || '',
+        baseSalary: getVal(['baseSalary', 'Lương cơ bản', 'Lương Cơ Bản (Đóng BHXH)', 'Lương Cơ Bản', 'Lương tham gia BHXH']) || fmtNum(data.salary?.baseSalary) || '',
         companyName: getVal(['companyName', 'Tên Công Ty']) || 'CÔNG TY TNHH EASTERN RUBBER CAMBODIA',
         currency: getVal(['currency', 'Đơn vị tính']) || 'USD',
         exchangeRate: getVal(['exchangeRate', 'Tỷ giá', 'Tỷ giá USD', 'Tỷ giá USD/VNĐ']),
@@ -132,8 +139,10 @@ export default function AdminDashboard() {
         birthdayFund: getVal(['Quỹ sinh nhật']),
         unionAllowance: getVal(['Phụ cấp ĐDCĐ']),
         totalDeduction: getVal(['totalDeduction', 'Tổng giảm trừ', 'Tổng khấu trừ']),
-        netSalary: data.salary?.netSalary || '',
-        ...initialDetails
+        netSalary: fmtNum(data.salary?.netSalary) || '',
+        ...Object.fromEntries(
+          Object.entries(initialDetails).map(([k, v]) => [k, fmtNum(v)])
+        ),
       });
     } catch (e) { alert("Lỗi kết nối"); } finally { setSearchingSalary(false); }
   };
