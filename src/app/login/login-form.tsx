@@ -88,13 +88,11 @@ export function LoginForm() {
       <div>
         <label htmlFor="dob" className="block text-xs font-medium text-slate-600 mb-1">
           Mật khẩu / ពាក្យសម្ងាត់ / Password
-          <span className="ml-1 text-slate-400 font-normal">(mặc định: ngày sinh DD/MM/YYYY)</span>
         </label>
         <input
           id="dob"
           name="dob"
           type="password"
-          placeholder="DD/MM/YYYY"
           autoComplete="current-password"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
