@@ -76,7 +76,8 @@ export async function POST(req: NextRequest) {
       // Scan rác: chữ cái trong cột tiền
       const baseStr = baseSalaryRaw != null && String(baseSalaryRaw).trim() !== '' && String(baseSalaryRaw).trim() !== '-'
         ? String(baseSalaryRaw) : '0';
-      const netStr = String(netSalaryRaw);
+      const netStr = netSalaryRaw != null && String(netSalaryRaw).trim() !== '' && String(netSalaryRaw).trim() !== '-'
+        ? String(netSalaryRaw) : '0';
       const baseSalary = parseFloat(baseStr);
       const netSalary = parseFloat(netStr);
 

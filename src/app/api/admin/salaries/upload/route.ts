@@ -72,7 +72,9 @@ export async function POST(req: NextRequest) {
       const baseSalary = baseSalaryRaw != null && String(baseSalaryRaw).trim() !== '' && String(baseSalaryRaw).trim() !== '-'
         ? parseFloat(String(baseSalaryRaw))
         : 0;
-      const netSalary = netSalaryRaw != null ? parseFloat(String(netSalaryRaw)) : 0;
+      const netSalary = netSalaryRaw != null && String(netSalaryRaw).trim() !== '' && String(netSalaryRaw).trim() !== '-'
+        ? parseFloat(String(netSalaryRaw))
+        : 0;
 
       if (isNaN(baseSalary)) {
          errors.push(`Dòng ${index + 2}: Lỗi định dạng số ở cột Lương Cơ Bản.`);
