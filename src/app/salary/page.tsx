@@ -25,6 +25,10 @@ export default async function SalaryPage({ searchParams }: Props) {
     redirect('/login');
   }
 
+  if (worker.mustChangePassword) {
+    redirect('/change-password');
+  }
+
   // Lấy danh sách tháng + đợt có lương
   const salaries = await prisma.salary.findMany({
     where: { workerId: worker.id },

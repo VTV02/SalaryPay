@@ -26,6 +26,10 @@ export function LoginForm() {
         setError(typeof data.error === 'string' ? data.error : 'Đăng nhập thất bại.');
         return;
       }
+      if (data.mustChangePassword) {
+        window.location.href = '/change-password';
+        return;
+      }
       const next = searchParams.get('next') || '/salary';
       window.location.href = next;
     } catch {
@@ -89,20 +93,10 @@ export function LoginForm() {
           name="dob"
           type="password"
           placeholder="••••••••••"
-          maxLength={10}
           autoComplete="current-password"
           value={dob}
-          onChange={(e) => {
-            const digits = e.target.value.replace(/\D/g, '').slice(0, 8);
-            let formatted = digits;
-            if (digits.length > 4) {
-              formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
-            } else if (digits.length > 2) {
-              formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
-            }
-            setDob(formatted);
-          }}
-          className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 tracking-widest focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600 outline-none"
+          onChange={(e) => setDob(e.target.value)}
+          className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600 outline-none"
           required
         />
       </div>

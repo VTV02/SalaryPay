@@ -12,10 +12,9 @@ export async function POST(req: NextRequest) {
     const employeeCode = String(body.employeeCode ?? '').trim();
     const dob = String(body.dob ?? '').trim();
 
-    // Validate DD/MM/YYYY format
-    if (!employeeCode || !/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
+    if (!employeeCode || !dob) {
       return NextResponse.json(
-        { error: 'Vui lòng nhập đủ mã nhân viên và ngày sinh (DD/MM/YYYY).' },
+        { error: 'Vui lòng nhập đủ mã nhân viên và mật khẩu.' },
         { status: 400 }
       );
     }
@@ -37,12 +36,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
+    // Nếu đã đổi mật khẩu → check passwordHash, nếu chưa → check dobHash (ngày sinh)
     let ok = false;
-    if (/^[a-f0-9]{64}$/i.test(worker.dobHash) && inputHash.length === 64) {
-      const a = Buffer.from(inputHash, 'hex');
-      const b = Buffer.from(worker.dobHash, 'hex');
-      ok = a.length === b.length && crypto.timingSafeEqual(a, b);
+    if (worker.passwordHash) {
+      // Đã đổi mật khẩu: so sánh SHA256 của input với passwordHash
+      const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
+      if (/^[a-f0-9]{64}$/i.test(worker.passwordHash) && inputHash.length === 64) {
+        const a = Buffer.from(inputHash, 'hex');
+        const b = Buffer.from(worker.passwordHash, 'hex');
+        ok = a.length === b.length && crypto.timingSafeEqual(a, b);
+      }
+    } else {
+      // Chưa đổi mật khẩu: dùng ngày sinh mặc định (DD/MM/YYYY)
+      const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
+      if (/^[a-f0-9]{64}$/i.test(worker.dobHash) && inputHash.length === 64) {
+        const a = Buffer.from(inputHash, 'hex');
+        const b = Buffer.from(worker.dobHash, 'hex');
+        ok = a.length === b.length && crypto.timingSafeEqual(a, b);
+      }
     }
 
     if (!ok) {
@@ -53,7 +64,7 @@ export async function POST(req: NextRequest) {
         where: { id: worker.id },
         data: { failedAttempts, lockUntil },
       });
-      return NextResponse.json({ error: 'Sai mã nhân viên hoặc mã xác thực.' }, { status: 401 });
+      return NextResponse.json({ error: 'Sai mã nhân viên hoặc mật khẩu.' }, { status: 401 });
     }
 
     await prisma.worker.update({
@@ -62,7 +73,7 @@ export async function POST(req: NextRequest) {
     });
 
     const token = await createSessionToken(worker.id, worker.employeeCode);
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.json({ ok: true, mustChangePassword: worker.mustChangePassword });
     res.cookies.set(sessionCookieName(), token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

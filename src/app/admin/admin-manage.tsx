@@ -84,6 +84,10 @@ export function AdminManage() {
   const [unlockMsg, setUnlockMsg] = useState('');
   const [unlockPending, setUnlockPending] = useState(false);
 
+  // Reset password state
+  const [resetPwMsg, setResetPwMsg] = useState('');
+  const [resetPwPending, setResetPwPending] = useState(false);
+
   const jsonHeaders: HeadersInit = { 'Content-Type': 'application/json' };
 
   // Fetch summary on mount
@@ -153,6 +157,7 @@ export function AdminManage() {
     setViewSalary(null);
     setEditMsg('');
     setUnlockMsg('');
+    setResetPwMsg('');
     setSearching(true);
     try {
       const res = await fetch('/api/admin/workers/search', {
@@ -233,6 +238,23 @@ export function AdminManage() {
       }
     } finally {
       setUnlockPending(false);
+    }
+  }
+
+  async function onResetPassword() {
+    if (!worker) return;
+    setResetPwMsg('');
+    setResetPwPending(true);
+    try {
+      const res = await fetch('/api/admin/workers/reset-password', {
+        method: 'POST',
+        headers: jsonHeaders,
+        body: JSON.stringify({ workerId: worker.id }),
+      });
+      const data = await res.json();
+      setResetPwMsg(data.message ?? data.error ?? 'Đã xử lý.');
+    } finally {
+      setResetPwPending(false);
     }
   }
 
@@ -596,6 +618,14 @@ export function AdminManage() {
               >
                 {deleteWorkerPending ? 'Đang xóa…' : 'Xóa nhân viên'}
               </button>
+              <button
+                onClick={onResetPassword}
+                disabled={resetPwPending}
+                className="rounded-xl border border-amber-200 text-amber-700 text-sm font-medium px-4 py-2 hover:bg-amber-50 transition-colors disabled:opacity-50"
+              >
+                {resetPwPending ? 'Đang reset…' : 'Reset mật khẩu'}
+              </button>
+              {resetPwMsg && <span className="text-sm text-emerald-700">{resetPwMsg}</span>}
             </div>
 
             {worker.isLocked && (

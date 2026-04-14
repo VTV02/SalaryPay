@@ -29,6 +29,8 @@ model Worker {
   company         String         @default("") // Tên công ty
   department      String         @default("") // Phòng ban / Bộ phận
   dobHash         String         // Mã hóa ngày sinh (DD/MM/YYYY)  @map("cccdHash")
+  passwordHash    String?        // Mật khẩu mới (null = chưa đổi, dùng dobHash)
+  mustChangePassword Boolean     @default(true) // true = bắt đổi mật khẩu lần đầu
   failedAttempts  Int            @default(0)
   lockUntil       DateTime?
   salaries        Salary[]
