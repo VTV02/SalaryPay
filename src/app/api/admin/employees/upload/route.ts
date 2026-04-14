@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const workbook = xlsx.read(buffer, { type: 'buffer' });
+    const workbook = xlsx.read(buffer, { type: 'buffer', cellDates: true });
 
     // Giả định dữ liệu nằm ở sheet đầu tiên
     const sheetName = workbook.SheetNames[0];
@@ -35,10 +35,33 @@ export async function POST(req: NextRequest) {
 
     for (const [index, row] of data.entries()) {
       const employeeCode = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
-      const fullName = String(row['Họ Tên'] ?? row['fullName'] ?? '').trim();
-      const dob = String(row['Ngày Sinh'] ?? row['dob'] ?? '').trim();
+      const fullName = String(row['Họ Tên'] ?? row['Ho Tên'] ?? row['fullName'] ?? '').trim();
+      const dobRaw = row['Ngày Sinh'] ?? row['dob'] ?? '';
       const company = String(row['Công Ty'] ?? row['company'] ?? '').trim();
       const department = String(row['Phòng Ban'] ?? row['Bộ Phận'] ?? row['department'] ?? '').trim();
+
+      // Parse ngày sinh: hỗ trợ Date object (Excel), serial number, hoặc string DD/MM/YYYY
+      let dob = '';
+      if (dobRaw instanceof Date) {
+        const d = dobRaw.getDate().toString().padStart(2, '0');
+        const m = (dobRaw.getMonth() + 1).toString().padStart(2, '0');
+        const y = dobRaw.getFullYear().toString();
+        dob = `${d}/${m}/${y}`;
+      } else if (typeof dobRaw === 'number') {
+        // Excel serial number → convert
+        const date = new Date((dobRaw - 25569) * 86400 * 1000);
+        const d = date.getUTCDate().toString().padStart(2, '0');
+        const m = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+        const y = date.getUTCFullYear().toString();
+        dob = `${d}/${m}/${y}`;
+      } else {
+        dob = String(dobRaw).trim();
+        // Hỗ trợ format 8 số: 15031990 → 15/03/1990
+        const digits = dob.replace(/\D/g, '');
+        if (digits.length === 8 && dob === digits) {
+          dob = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+        }
+      }
 
       if (!employeeCode || !fullName || !dob) {
         errors.push(`Dòng ${index + 2}: Thiếu thông tin bắt buộc (Mã NV, Họ Tên, Ngày Sinh).`);
@@ -46,7 +69,7 @@ export async function POST(req: NextRequest) {
       }
 
       if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
-        errors.push(`Dòng ${index + 2}: Ngày sinh phải đúng định dạng DD/MM/YYYY, phát hiện '${dob}'.`);
+        errors.push(`Dòng ${index + 2}: Ngày sinh không đúng định dạng, phát hiện '${dob}'.`);
         continue;
       }
 
