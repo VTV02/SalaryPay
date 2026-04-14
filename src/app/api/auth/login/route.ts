@@ -36,23 +36,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    function safeCompare(inputHash: string, storedHash: string): boolean {
+      if (!/^[a-f0-9]{64}$/i.test(storedHash) || inputHash.length !== 64) return false;
+      const a = Buffer.from(inputHash, 'hex');
+      const b = Buffer.from(storedHash, 'hex');
+      return a.length === b.length && crypto.timingSafeEqual(a, b);
+    }
+
     // Nếu đã đổi mật khẩu → check passwordHash, nếu chưa → check dobHash (ngày sinh)
     let ok = false;
     if (worker.passwordHash) {
-      // Đã đổi mật khẩu: so sánh SHA256 của input với passwordHash
+      // Đã đổi mật khẩu: so sánh SHA256 input trực tiếp với passwordHash
       const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
-      if (/^[a-f0-9]{64}$/i.test(worker.passwordHash) && inputHash.length === 64) {
-        const a = Buffer.from(inputHash, 'hex');
-        const b = Buffer.from(worker.passwordHash, 'hex');
-        ok = a.length === b.length && crypto.timingSafeEqual(a, b);
-      }
+      ok = safeCompare(inputHash, worker.passwordHash);
     } else {
-      // Chưa đổi mật khẩu: dùng ngày sinh mặc định (DD/MM/YYYY)
+      // Chưa đổi mật khẩu: thử input trực tiếp, rồi thử auto-format 8 số → DD/MM/YYYY
       const inputHash = crypto.createHash('sha256').update(dob).digest('hex');
-      if (/^[a-f0-9]{64}$/i.test(worker.dobHash) && inputHash.length === 64) {
-        const a = Buffer.from(inputHash, 'hex');
-        const b = Buffer.from(worker.dobHash, 'hex');
-        ok = a.length === b.length && crypto.timingSafeEqual(a, b);
+      ok = safeCompare(inputHash, worker.dobHash);
+      if (!ok) {
+        // User nhập 8 số không có / → tự format thành DD/MM/YYYY rồi thử lại
+        const digits = dob.replace(/\D/g, '');
+        if (digits.length === 8) {
+          const formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+          const formattedHash = crypto.createHash('sha256').update(formatted).digest('hex');
+          ok = safeCompare(formattedHash, worker.dobHash);
+        }
       }
     }
 
