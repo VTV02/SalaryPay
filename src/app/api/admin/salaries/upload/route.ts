@@ -46,6 +46,18 @@ export async function POST(req: NextRequest) {
     let successCount = 0;
     const errors: string[] = [];
 
+    // Batch fetch: lấy tất cả mã NV từ Excel, query 1 lần thay vì N lần
+    const allCodes = new Set<string>();
+    for (const row of data) {
+      const code = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
+      if (code) allCodes.add(code);
+    }
+    const workers = await prisma.worker.findMany({
+      where: { employeeCode: { in: [...allCodes] } },
+      select: { id: true, employeeCode: true },
+    });
+    const workerMap = new Map(workers.map((w) => [w.employeeCode, w.id]));
+
     for (const [index, row] of data.entries()) {
       const employeeCode = String(row['Mã Nhân Viên'] ?? row['employeeCode'] ?? '').trim();
       const baseSalaryRaw = row['Lương Cơ Bản'] ?? row['Lương Cơ bản'] ?? row['baseSalary'];
@@ -70,14 +82,11 @@ export async function POST(req: NextRequest) {
          errors.push(`Dòng ${index + 2}: Lỗi định dạng số ở cột Thực Lãnh.`);
          continue;
       }
-      
-      try {
-        // Tìm worker ID từ mã NV
-        const worker = await prisma.worker.findUnique({
-          where: { employeeCode }
-        });
 
-        if (!worker) {
+      try {
+        const workerId = workerMap.get(employeeCode);
+
+        if (!workerId) {
            errors.push(`Dòng ${index + 2}: Không tìm thấy Mã Nhân Viên '${employeeCode}' trong hệ thống.`);
            continue;
         }
@@ -96,7 +105,7 @@ export async function POST(req: NextRequest) {
         await prisma.salary.upsert({
           where: {
             workerId_monthYear_period: {
-              workerId: worker.id,
+              workerId,
               monthYear,
               period,
             },
@@ -107,7 +116,7 @@ export async function POST(req: NextRequest) {
             details: detailsString,
           },
           create: {
-            workerId: worker.id,
+            workerId,
             monthYear,
             period,
             baseSalary,

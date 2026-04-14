@@ -51,11 +51,11 @@ export function LoginForm() {
         <p className="text-sm font-semibold text-slate-600">ប្រព័ន្ធគ្រប់គ្រងប្រាក់ខែ</p>
         <p className="text-sm font-semibold text-slate-600">Payroll Management System</p>
         <p className="text-xs text-slate-500 mt-2">
-          Nhập mã nhân viên và ngày tháng năm sinh
+          Nhập mã nhân viên và mật khẩu
           <br />
-          បញ្ចូលលេខកូដបុគ្គលិក និងថ្ងៃខែឆ្នាំកំណើត
+          បញ្ចូលលេខកូដបុគ្គលិក និងពាក្យសម្ងាត់
           <br />
-          Enter Employee ID &amp; date of birth
+          Enter Employee ID &amp; password
         </p>
       </div>
 
@@ -82,13 +82,15 @@ export function LoginForm() {
 
       <div>
         <label htmlFor="dob" className="block text-xs font-medium text-slate-600 mb-1">
-          Ngày sinh / ថ្ងៃកំណើត / Date of birth (DD/MM/YYYY)
+          Mật khẩu / ពាក្យសម្ងាត់ / Password
         </label>
         <input
           id="dob"
           name="dob"
-          placeholder="DD/MM/YYYY"
+          type="password"
+          placeholder="••••••••••"
           maxLength={10}
+          autoComplete="current-password"
           value={dob}
           onChange={(e) => {
             const digits = e.target.value.replace(/\D/g, '').slice(0, 8);

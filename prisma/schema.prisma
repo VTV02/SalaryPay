@@ -51,6 +51,7 @@ model Salary {
   updatedAt       DateTime       @updatedAt
 
   @@unique([workerId, monthYear, period])
+  @@index([workerId])
   @@index([monthYear])
 }
 

@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${filename}"`,
-        'Cache-Control': 'private, no-store',
+        'Cache-Control': 'private, max-age=300',
       },
     });
   } catch (e) {
