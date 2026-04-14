@@ -96,8 +96,26 @@ export function LoginForm() {
           type="password"
           placeholder="DD/MM/YYYY"
           autoComplete="current-password"
+          maxLength={10}
           value={dob}
-          onChange={(e) => setDob(e.target.value)}
+          onChange={(e) => {
+            const raw = e.target.value;
+            const digitsOnly = raw.replace(/\D/g, '');
+            // Nếu toàn số → auto-format DD/MM/YYYY (mật khẩu mặc định là ngày sinh)
+            if (raw === digitsOnly || raw.replace(/\//g, '') === digitsOnly) {
+              const digits = digitsOnly.slice(0, 8);
+              let formatted = digits;
+              if (digits.length > 4) {
+                formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+              } else if (digits.length > 2) {
+                formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+              }
+              setDob(formatted);
+            } else {
+              // Có chữ cái → mật khẩu tự do (đã đổi rồi)
+              setDob(raw);
+            }
+          }}
           className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600 outline-none"
           required
         />
