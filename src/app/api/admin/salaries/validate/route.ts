@@ -81,11 +81,11 @@ export async function POST(req: NextRequest) {
       const baseSalary = parseFloat(baseStr);
       const netSalary = parseFloat(netStr);
 
-      if (isNaN(baseSalary) || /[a-zA-Z]/.test(baseStr)) {
+      if (isNaN(baseSalary)) {
         issues.push({ row: rowNum, type: 'error', message: `Cột Lương Cơ Bản chứa giá trị không hợp lệ: '${baseStr}'.` });
         continue;
       }
-      if (isNaN(netSalary) || /[a-zA-Z]/.test(netStr)) {
+      if (isNaN(netSalary)) {
         issues.push({ row: rowNum, type: 'error', message: `Cột Thực Lãnh chứa giá trị không hợp lệ: '${netStr}'.` });
         continue;
       }
