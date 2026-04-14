@@ -24,6 +24,7 @@ export function LoginForm() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setError(typeof data.error === 'string' ? data.error : 'Đăng nhập thất bại.');
+        setPending(false);
         return;
       }
       if (data.mustChangePassword) {
@@ -87,6 +88,7 @@ export function LoginForm() {
       <div>
         <label htmlFor="dob" className="block text-xs font-medium text-slate-600 mb-1">
           Mật khẩu / ពាក្យសម្ងាត់ / Password
+          <span className="ml-1 text-slate-400 font-normal">(mặc định: ngày sinh DD/MM/YYYY)</span>
         </label>
         <input
           id="dob"
